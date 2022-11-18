@@ -63,6 +63,8 @@ ble_sm_alg_encrypt(const uint8_t *key, const uint8_t *plaintext,
 
     swap_buf(tmp, key, 16);
 
+    BLE_HS_LOG(INFO, "ble_sm_alg_encrypt()\n");
+
     if (tc_aes128_set_encrypt_key(&s, tmp) == TC_CRYPTO_FAIL) {
         return BLE_HS_EUNKNOWN;
     }
@@ -101,6 +103,7 @@ ble_sm_alg_s1(const uint8_t *k, const uint8_t *r1, const uint8_t *r2,
         return rc;
     }
 
+    BLE_HS_LOG(INFO, "ble_sm_alg_s1()\n");
     BLE_HS_LOG(DEBUG, "ble_sm_alg_s1()\n    k=");
     ble_hs_log_flat_buf(k, 16);
     BLE_HS_LOG(DEBUG, "\n    r1=");
@@ -124,6 +127,7 @@ ble_sm_alg_c1(const uint8_t *k, const uint8_t *r,
     uint8_t p1[16], p2[16];
     int rc;
 
+    BLE_HS_LOG(INFO, "ble_sm_alg_c1()\n");
     BLE_HS_LOG(DEBUG, "ble_sm_alg_c1()\n    k=");
     ble_hs_log_flat_buf(k, 16);
     BLE_HS_LOG(DEBUG, "\n    r=");
