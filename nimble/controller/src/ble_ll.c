@@ -366,7 +366,8 @@ static void ble_ll_event_dbuf_overflow(struct ble_npl_event *ev);
 #if MYNEWT_VAL(BLE_LL_CFG_FEAT_LL_EXT_ADV)
 #define BLE_LL_STACK_SIZE   (120)
 #else
-#define BLE_LL_STACK_SIZE   (90)
+// Double stack size (90 => 180) in order to enable "BLE_LL_ENCRYPT_DEBUG".
+#define BLE_LL_STACK_SIZE   (180)
 #endif
 #endif
 

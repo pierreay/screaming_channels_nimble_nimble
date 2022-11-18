@@ -43,7 +43,7 @@
  * this the stack requirements for the LL task go up considerably. The
  * default stack will not be enough and must be increased.
  */
-#undef BLE_LL_ENCRYPT_DEBUG
+// #undef BLE_LL_ENCRYPT_DEBUG
 #ifdef BLE_LL_ENCRYPT_DEBUG
 #include "console/console.h"
 #endif

@@ -29,6 +29,7 @@ pkg.req_apis:
     - ble_driver
     - ble_transport
     - stats
+    - console
 pkg.req_apis.BLE_LL_PA:
     - ble_ll_pa
 pkg.req_apis.BLE_LL_LNA:
@@ -36,5 +37,9 @@ pkg.req_apis.BLE_LL_LNA:
 
 pkg.deps:
     - "@apache-mynewt-core/kernel/os"
+    - "@apache-mynewt-core/sys/console/full"
     - nimble
     - nimble/transport
+
+pkg.cflags:
+    - -DBLE_LL_ENCRYPT_DEBUG
