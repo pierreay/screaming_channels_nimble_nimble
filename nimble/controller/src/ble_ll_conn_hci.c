@@ -32,6 +32,7 @@
 #include "controller/ble_ll_ctrl.h"
 #include "controller/ble_ll_scan.h"
 #include "controller/ble_ll_adv.h"
+#include "console/console.h"
 #include "ble_ll_conn_priv.h"
 
 #if MYNEWT_VAL(BLE_LL_ROLE_CENTRAL) || MYNEWT_VAL(BLE_LL_ROLE_PERIPHERAL)
@@ -1592,6 +1593,7 @@ ble_ll_conn_hci_le_ltk_reply(const uint8_t *cmdbuf, uint8_t len,
     }
 
     swap_buf(connsm->enc_data.enc_block.key, cmd->ltk, 16);
+    console_printf("[nimble/controller/src/ble_ll_conn_hci.c] ble_ll_conn_hci_le_ltk_reply()\n");
     ble_ll_calc_session_key(connsm);
     ble_ll_ctrl_start_enc_send(connsm);
     rc = BLE_ERR_SUCCESS;

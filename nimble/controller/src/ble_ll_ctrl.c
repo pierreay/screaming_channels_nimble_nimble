@@ -1318,6 +1318,8 @@ ble_ll_calc_session_key(struct ble_ll_conn_sm *connsm)
     int cnt;
 #endif
 
+    console_printf("[nimble/controller/src/ble_ll_ctrl.c] ble_ll_calc_session_key()\n");
+
     /* XXX: possibly have some way out of this if this locks up */
     while (1) {
         if (!ble_hw_encrypt_block(&connsm->enc_data.enc_block)) {
@@ -1573,6 +1575,7 @@ ble_ll_ctrl_rx_enc_rsp(struct ble_ll_conn_sm *connsm, uint8_t *dptr)
 
         swap_buf(connsm->enc_data.enc_block.plain_text, dptr, 8);
         memcpy(connsm->enc_data.iv + 4, dptr + 8, 4);
+        console_printf("[nimble/controller/src/ble_ll_ctrl.c] ble_ll_ctrl_rx_enc_rsp()\n");
         ble_ll_calc_session_key(connsm);
         connsm->enc_data.enc_state = CONN_ENC_S_START_ENC_REQ_WAIT;
     }
