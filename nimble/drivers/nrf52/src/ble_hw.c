@@ -271,32 +271,33 @@ ble_hw_encrypt_block(struct ble_encryption_block *ecb)
 
     console_printf("[nimble/drivers/nrf52/src/ble_hw.c] ble_hw_encrypt_block()\n");
 
-    /* Stop ECB */
-    nrf_ecb_task_trigger(NRF_ECB, NRF_ECB_TASK_STOPECB);
-    /* XXX: does task stop clear these counters? Anyway to do this quicker? */
-    NRF_ECB->EVENTS_ENDECB = 0;
-    NRF_ECB->EVENTS_ERRORECB = 0;
-    NRF_ECB->ECBDATAPTR = (uint32_t)ecb;
+    for (int i = 0; i < 3; i++) {
+        /* Stop ECB */
+        nrf_ecb_task_trigger(NRF_ECB, NRF_ECB_TASK_STOPECB);
+        /* XXX: does task stop clear these counters? Anyway to do this quicker? */
+        NRF_ECB->EVENTS_ENDECB = 0;
+        NRF_ECB->EVENTS_ERRORECB = 0;
+        NRF_ECB->ECBDATAPTR = (uint32_t)ecb;
 
-    /* Start ECB */
-    nrf_ecb_task_trigger(NRF_ECB, NRF_ECB_TASK_STARTECB);
+        /* Start ECB */
+        nrf_ecb_task_trigger(NRF_ECB, NRF_ECB_TASK_STARTECB);
 
-    /* Wait till error or done */
-    rc = 0;
-    while (1) {
-        end = NRF_ECB->EVENTS_ENDECB;
-        err = NRF_ECB->EVENTS_ERRORECB;
-        if (end || err) {
-            if (err) {
-                rc = -1;
+        /* Wait till error or done */
+        rc = 0;
+        while (1) {
+            end = NRF_ECB->EVENTS_ENDECB;
+            err = NRF_ECB->EVENTS_ERRORECB;
+            if (end || err) {
+                if (err) {
+                    rc = -1;
+                }
+                break;
             }
-            break;
+    #if BABBLESIM
+            tm_tick();
+    #endif
         }
-#if BABBLESIM
-        tm_tick();
-#endif
     }
-
     return rc;
 }
 
