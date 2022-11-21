@@ -36,6 +36,7 @@
 #include "os/os_trace_api.h"
 #include <hal/nrf_rng.h>
 #include "hal/nrf_ecb.h"
+#include "console/console.h"
 
 /* Total number of resolving list elements */
 #define BLE_HW_RESOLV_LIST_SIZE     (16)
@@ -267,6 +268,8 @@ ble_hw_encrypt_block(struct ble_encryption_block *ecb)
     int rc;
     uint32_t end;
     uint32_t err;
+
+    console_printf("[nimble/drivers/nrf52/src/ble_hw.c] ble_hw_encrypt_block()\n");
 
     /* Stop ECB */
     nrf_ecb_task_trigger(NRF_ECB, NRF_ECB_TASK_STOPECB);

@@ -27,5 +27,9 @@ pkg.keywords:
 
 pkg.apis: ble_driver
 pkg.deps:
+    - "@apache-mynewt-core/sys/console/full"
     - nimble
     - nimble/controller
+
+pkg.req_apis:
+    - console
