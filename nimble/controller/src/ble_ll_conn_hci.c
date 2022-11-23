@@ -1593,7 +1593,9 @@ ble_ll_conn_hci_le_ltk_reply(const uint8_t *cmdbuf, uint8_t len,
     }
 
     swap_buf(connsm->enc_data.enc_block.key, cmd->ltk, 16);
+#if MYNEWT_VAL(CONSOLE_LOG)
     console_printf("[nimble/controller/src/ble_ll_conn_hci.c] ble_ll_conn_hci_le_ltk_reply()\n");
+#endif
     ble_ll_calc_session_key(connsm);
     ble_ll_ctrl_start_enc_send(connsm);
     rc = BLE_ERR_SUCCESS;

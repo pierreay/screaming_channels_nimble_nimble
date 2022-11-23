@@ -270,7 +270,9 @@ ble_hw_encrypt_block(struct ble_encryption_block *ecb)
     uint32_t end;
     uint32_t err;
 
+#if MYNEWT_VAL(CONSOLE_LOG)
     console_printf("[nimble/drivers/nrf52/src/ble_hw.c] ble_hw_encrypt_block_hardware()\n");
+#endif
 
     for (int i = 0; i < 3; i++) {
         /* Stop ECB */
@@ -310,7 +312,9 @@ static struct tc_aes_key_sched_struct g_ctx;
 int
 ble_hw_encrypt_block(struct ble_encryption_block *ecb)
 {
+#if MYNEWT_VAL(CONSOLE_LOG)
     console_printf("[nimble/drivers/nrf52/src/ble_hw.c] ble_hw_encrypt_block_tinycrypt()\n");
+#endif
     tc_aes128_set_encrypt_key(&g_ctx, ecb->key);
     tc_aes_encrypt(ecb->cipher_text, ecb->plain_text, &g_ctx);
     return 0;
