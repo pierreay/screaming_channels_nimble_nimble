@@ -32,6 +32,7 @@
 #include "controller/ble_ll_sync.h"
 #include "controller/ble_ll_tmr.h"
 #include "ble_ll_conn_priv.h"
+#include "console/console.h"
 
 #if MYNEWT_VAL(BLE_LL_ROLE_PERIPHERAL) || MYNEWT_VAL(BLE_LL_ROLE_CENTRAL)
 
@@ -43,9 +44,8 @@
  * this the stack requirements for the LL task go up considerably. The
  * default stack will not be enough and must be increased.
  */
-// #undef BLE_LL_ENCRYPT_DEBUG
-#ifdef BLE_LL_ENCRYPT_DEBUG
-#include "console/console.h"
+#if MYNEWT_VAL(BLE_LL_ENCRYPT_DEBUG_DISABLE)
+#undef BLE_LL_ENCRYPT_DEBUG
 #endif
 
 /*
