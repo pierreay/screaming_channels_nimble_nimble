@@ -261,6 +261,7 @@ ble_hw_whitelist_match(void)
     return (int)NRF_RADIO->EVENTS_DEVMATCH;
 }
 
+#if MYNEWT_VAL(BLE_CRYPTO_HW)
 /* Encrypt data */
 int
 ble_hw_encrypt_block(struct ble_encryption_block *ecb)
@@ -269,7 +270,7 @@ ble_hw_encrypt_block(struct ble_encryption_block *ecb)
     uint32_t end;
     uint32_t err;
 
-    console_printf("[nimble/drivers/nrf52/src/ble_hw.c] ble_hw_encrypt_block()\n");
+    console_printf("[nimble/drivers/nrf52/src/ble_hw.c] ble_hw_encrypt_block_hardware()\n");
 
     for (int i = 0; i < 3; i++) {
         /* Stop ECB */
@@ -300,6 +301,21 @@ ble_hw_encrypt_block(struct ble_encryption_block *ecb)
     }
     return rc;
 }
+
+#else
+
+#include "tinycrypt/aes.h"
+static struct tc_aes_key_sched_struct g_ctx;
+/* Encrypt data */
+int
+ble_hw_encrypt_block(struct ble_encryption_block *ecb)
+{
+    console_printf("[nimble/drivers/nrf52/src/ble_hw.c] ble_hw_encrypt_block_tinycrypt()\n");
+    tc_aes128_set_encrypt_key(&g_ctx, ecb->key);
+    tc_aes_encrypt(ecb->cipher_text, ecb->plain_text, &g_ctx);
+    return 0;
+}
+#endif
 
 /**
  * Random number generator ISR.

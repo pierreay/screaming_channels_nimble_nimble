@@ -17,6 +17,11 @@
 #
 
 syscfg.defs:
+    BLE_CRYPTO_HW:
+        description: >
+            Enable or disable the use of hardware AES-ECB peripheral from nRF52832.
+        value: 1
+
     BLE_PHY_SYSVIEW:
         description: >
             Enable SystemView tracing module for radio driver.

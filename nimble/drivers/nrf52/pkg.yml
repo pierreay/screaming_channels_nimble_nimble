@@ -28,6 +28,7 @@ pkg.keywords:
 pkg.apis: ble_driver
 pkg.deps:
     - "@apache-mynewt-core/sys/console/full"
+    - "@apache-mynewt-core/crypto/tinycrypt"
     - nimble
     - nimble/controller
 
