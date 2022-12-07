@@ -3073,6 +3073,9 @@ ble_ll_ctrl_reject_ind_send(struct ble_ll_conn_sm *connsm, uint8_t rej_opcode,
         opcode = BLE_LL_CTRL_REJECT_IND_EXT;
         if (rej_opcode == BLE_LL_CTRL_ENC_REQ) {
             if ((connsm->conn_features & BLE_LL_FEAT_EXTENDED_REJ) == 0) {
+#if MYNEWT_VAL(CONSOLE_LOG)
+                console_printf("[nimble/controller/src/ble_ll_ctrl.c] rspbuf[0] = opcode = BLE_LL_CTRL_REJECT_IND;\n");
+#endif
                 opcode = BLE_LL_CTRL_REJECT_IND;
             }
         }
