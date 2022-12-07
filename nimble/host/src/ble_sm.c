@@ -47,6 +47,7 @@
 #include "nimble/nimble_opt.h"
 #include "host/ble_sm.h"
 #include "ble_hs_priv.h"
+#include "console/console.h"
 
 #if NIMBLE_BLE_CONNECT
 #if NIMBLE_BLE_SM
@@ -1261,6 +1262,9 @@ ble_sm_ltk_req_reply_tx(uint16_t conn_handle, const uint8_t *ltk)
 static int
 ble_sm_ltk_req_neg_reply_tx(uint16_t conn_handle)
 {
+#if MYNEWT_VAL(CONSOLE_LOG)
+    console_printf("[nimble/host/src/ble_sm.c] ble_sm_ltk_req_neg_reply_tx()\n");
+#endif
     struct ble_hci_le_lt_key_req_neg_reply_cp cmd;
     struct ble_hci_le_lt_key_req_neg_reply_cp rsp;
     int rc;
@@ -1298,6 +1302,9 @@ static void
 ble_sm_ltk_restore_exec(struct ble_sm_proc *proc, struct ble_sm_result *res,
                         void *arg)
 {
+#if MYNEWT_VAL(CONSOLE_LOG)
+    console_printf("[nimble/host/src/ble_sm.c] ble_sm_ltk_restore_exec()\n");
+#endif
     struct ble_store_value_sec *value_sec;
 
     BLE_HS_DBG_ASSERT(!(proc->flags & BLE_SM_PROC_F_INITIATOR));
@@ -1305,6 +1312,9 @@ ble_sm_ltk_restore_exec(struct ble_sm_proc *proc, struct ble_sm_result *res,
     value_sec = arg;
 
     if (value_sec != NULL) {
+#if MYNEWT_VAL(CONSOLE_LOG)
+    console_printf("[nimble/host/src/ble_sm.c] /* Store provided a key; send it to the controller. */");
+#endif
         /* Store provided a key; send it to the controller. */
         res->app_status = ble_sm_ltk_req_reply_tx(
             proc->conn_handle, value_sec->ltk);
@@ -1319,6 +1329,10 @@ ble_sm_ltk_restore_exec(struct ble_sm_proc *proc, struct ble_sm_result *res,
             res->enc_cb = 1;
         }
     } else {
+#if MYNEWT_VAL(CONSOLE_LOG)
+    console_printf("[nimble/host/src/ble_sm.c] /* Application does not have the requested key in its database.\nSend a negative reply to the controller.\n");
+    console_printf("[nimble/host/src/ble_sm.c] The controller doesn't receive any LTK from here.\nNo session key calculation can be processed with the LTK as a key.\n");
+#endif
         /* Application does not have the requested key in its database.  Send a
          * negative reply to the controller.
          */
@@ -1334,6 +1348,9 @@ ble_sm_ltk_restore_exec(struct ble_sm_proc *proc, struct ble_sm_result *res,
 int
 ble_sm_ltk_req_rx(const struct ble_hci_ev_le_subev_lt_key_req *ev)
 {
+#if MYNEWT_VAL(CONSOLE_LOG)
+    console_printf("[nimble/host/src/ble_sm.c] ble_sm_ltk_req_rx()\n");
+#endif
     struct ble_store_value_sec value_sec;
     struct ble_hs_conn_addrs addrs;
     struct ble_sm_result res;
@@ -1360,6 +1377,9 @@ ble_sm_ltk_req_rx(const struct ble_hci_ev_le_subev_lt_key_req *ev)
         if (proc == NULL) {
             res.app_status = BLE_HS_ENOMEM;
         } else {
+#if MYNEWT_VAL(CONSOLE_LOG)
+    console_printf("[nimble/host/src/ble_sm.c] proc->state = BLE_SM_PROC_STATE_LTK_RESTORE;\n");
+#endif
             proc->conn_handle = conn_handle;
             proc->state = BLE_SM_PROC_STATE_LTK_RESTORE;
             ble_sm_insert(proc);

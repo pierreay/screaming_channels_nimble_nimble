@@ -3055,6 +3055,11 @@ int
 ble_ll_ctrl_reject_ind_send(struct ble_ll_conn_sm *connsm, uint8_t rej_opcode,
                             uint8_t err)
 {
+#if MYNEWT_VAL(CONSOLE_LOG)
+    console_printf("[nimble/controller/src/ble_ll_ctrl.c] ble_ll_ctrl_reject_ind_send() rej_opcode=%d err=%d\n", rej_opcode, err);
+    if (err == BLE_ERR_PINKEY_MISSING)
+        console_printf("[nimble/controller/src/ble_ll_ctrl.c] err=BLE_ERR_PINKEY_MISSING\n");
+#endif
     int rc;
     uint8_t len;
     uint8_t opcode;

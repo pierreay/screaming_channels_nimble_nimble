@@ -1560,6 +1560,9 @@ int
 ble_ll_conn_hci_le_ltk_reply(const uint8_t *cmdbuf, uint8_t len,
                              uint8_t *rspbuf, uint8_t *rsplen)
 {
+#if MYNEWT_VAL(CONSOLE_LOG)
+    console_printf("[nimble/controller/src/ble_ll_conn_hci.c] ble_ll_conn_hci_le_ltk_reply()\n");
+#endif
     const struct ble_hci_le_lt_key_req_reply_cp *cmd = (const void *) cmdbuf;
     struct ble_hci_le_lt_key_req_reply_rp *rsp = (void *) rspbuf;
     struct ble_ll_conn_sm *connsm;
@@ -1593,9 +1596,6 @@ ble_ll_conn_hci_le_ltk_reply(const uint8_t *cmdbuf, uint8_t len,
     }
 
     swap_buf(connsm->enc_data.enc_block.key, cmd->ltk, 16);
-#if MYNEWT_VAL(CONSOLE_LOG)
-    console_printf("[nimble/controller/src/ble_ll_conn_hci.c] ble_ll_conn_hci_le_ltk_reply()\n");
-#endif
     ble_ll_calc_session_key(connsm);
     ble_ll_ctrl_start_enc_send(connsm);
     rc = BLE_ERR_SUCCESS;
@@ -1622,6 +1622,9 @@ int
 ble_ll_conn_hci_le_ltk_neg_reply(const uint8_t *cmdbuf, uint8_t len,
                                  uint8_t *rspbuf, uint8_t *rsplen)
 {
+#if MYNEWT_VAL(CONSOLE_LOG)
+    console_printf("[nimble/controller/src/ble_ll_conn_hci.c] ble_ll_conn_hci_le_ltk_neg_reply()\n");
+#endif
     const struct ble_hci_le_lt_key_req_neg_reply_cp *cmd = (const void *) cmdbuf;
     struct ble_hci_le_lt_key_req_neg_reply_rp *rsp = (void *) rspbuf;
     struct ble_ll_conn_sm *connsm;
@@ -1636,6 +1639,9 @@ ble_ll_conn_hci_le_ltk_neg_reply(const uint8_t *cmdbuf, uint8_t len,
     handle = le16toh(cmd->conn_handle);
     connsm = ble_ll_conn_find_by_handle(handle);
     if (!connsm) {
+#if MYNEWT_VAL(CONSOLE_LOG)
+    console_printf("[nimble/controller/src/ble_ll_conn_hci.c] rc = BLE_ERR_UNK_CONN_ID;\n");
+#endif
         rc = BLE_ERR_UNK_CONN_ID;
         goto ltk_key_cmd_complete;
     }
@@ -1650,11 +1656,18 @@ ble_ll_conn_hci_le_ltk_neg_reply(const uint8_t *cmdbuf, uint8_t len,
 
     /* The connection should be awaiting a reply. If not, just discard */
     if (connsm->enc_data.enc_state != CONN_ENC_S_LTK_REQ_WAIT) {
+#if MYNEWT_VAL(CONSOLE_LOG)
+    console_printf("[nimble/controller/src/ble_ll_conn_hci.c] /* The connection should be awaiting a reply. If not, just discard */\n");
+    console_printf("[nimble/controller/src/ble_ll_conn_hci.c] rc = BLE_ERR_CMD_DISALLOWED;\n");
+#endif
         rc = BLE_ERR_CMD_DISALLOWED;
         goto ltk_key_cmd_complete;
     }
 
     /* We received a negative reply! Send REJECT_IND */
+#if MYNEWT_VAL(CONSOLE_LOG)
+    console_printf("[nimble/controller/src/ble_ll_conn_hci.c] /* We received a negative reply! Send REJECT_IND */\n");
+#endif
     ble_ll_ctrl_reject_ind_send(connsm, BLE_LL_CTRL_ENC_REQ,
                                 BLE_ERR_PINKEY_MISSING);
     connsm->enc_data.enc_state = CONN_ENC_S_LTK_NEG_REPLY;
