@@ -254,7 +254,7 @@ int ble_store_full_event(int obj_type, uint16_t conn_handle);
 
 int ble_store_read_our_sec(const struct ble_store_key_sec *key_sec,
                            struct ble_store_value_sec *value_sec);
-int ble_store_write_our_sec(const struct ble_store_value_sec *value_sec);
+int ble_store_write_our_sec(struct ble_store_value_sec *value_sec);
 int ble_store_delete_our_sec(const struct ble_store_key_sec *key_sec);
 int ble_store_read_peer_sec(const struct ble_store_key_sec *key_sec,
                             struct ble_store_value_sec *value_sec);

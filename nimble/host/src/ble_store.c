@@ -172,8 +172,29 @@ ble_store_persist_sec(int obj_type,
 }
 
 int
-ble_store_write_our_sec(const struct ble_store_value_sec *value_sec)
+ble_store_write_our_sec(struct ble_store_value_sec *value_sec)
 {
+    /* Set our fixed values of EDIV, RAND and LTK for each pairing. It will
+       allows us to not have to get pairing parameters after each firmware
+       flash. */
+    value_sec->ediv     = 0x7e92;
+    value_sec->rand_num = 0x57d757a950579105;
+    value_sec->ltk[0]   = 0x40;
+    value_sec->ltk[1]   = 0x0a;
+    value_sec->ltk[2]   = 0x14;
+    value_sec->ltk[3]   = 0x3c;
+    value_sec->ltk[4]   = 0x85;
+    value_sec->ltk[5]   = 0xef;
+    value_sec->ltk[6]   = 0x22;
+    value_sec->ltk[7]   = 0xdc;
+    value_sec->ltk[8]   = 0xf6;
+    value_sec->ltk[9]   = 0xd9;
+    value_sec->ltk[10]  = 0x92;
+    value_sec->ltk[11]  = 0x92;
+    value_sec->ltk[12]  = 0x02;
+    value_sec->ltk[13]  = 0xf8;
+    value_sec->ltk[14]  = 0xc8;
+    value_sec->ltk[15]  = 0xfc;
     console_printf("[nimble/host/ble_store.c] ble_store_write_our_sec()\n");
     console_printf("ediv=%#hx\n", value_sec->ediv);
     console_printf("rand=%#llx\n", value_sec->rand_num);
