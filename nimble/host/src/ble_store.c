@@ -21,6 +21,7 @@
 
 #include "host/ble_store.h"
 #include "ble_hs_priv.h"
+#include <console/console.h>
 
 int
 ble_store_read(int obj_type, const union ble_store_key *key,
@@ -173,6 +174,14 @@ ble_store_persist_sec(int obj_type,
 int
 ble_store_write_our_sec(const struct ble_store_value_sec *value_sec)
 {
+    console_printf("[nimble/host/ble_store.c] ble_store_write_our_sec()\n");
+    console_printf("ediv=%#hx\n", value_sec->ediv);
+    console_printf("rand=%#llx\n", value_sec->rand_num);
+    console_printf("ltk=0x%02hx%02hx%02hx%02hx%02hx%02hx%02hx%02hx%02hx%02hx%02hx%02hx%02hx%02hx%02hx%02hx\n",
+                   value_sec->ltk[0], value_sec->ltk[1], value_sec->ltk[2], value_sec->ltk[3],
+                   value_sec->ltk[4], value_sec->ltk[5], value_sec->ltk[6], value_sec->ltk[7],
+                   value_sec->ltk[8], value_sec->ltk[9], value_sec->ltk[10], value_sec->ltk[11],
+                   value_sec->ltk[12], value_sec->ltk[13], value_sec->ltk[14], value_sec->ltk[15]);
     int rc;
 
     rc = ble_store_persist_sec(BLE_STORE_OBJ_TYPE_OUR_SEC, value_sec);
@@ -226,6 +235,14 @@ ble_store_read_peer_sec(const struct ble_store_key_sec *key_sec,
 int
 ble_store_write_peer_sec(const struct ble_store_value_sec *value_sec)
 {
+    console_printf("[nimble/host/ble_store.c] ble_store_write_peer_sec()\n");
+    console_printf("ediv=%#hx\n", value_sec->ediv);
+    console_printf("rand=%#llx\n", value_sec->rand_num);
+    console_printf("ltk=0x%02hx%02hx%02hx%02hx%02hx%02hx%02hx%02hx%02hx%02hx%02hx%02hx%02hx%02hx%02hx%02hx\n",
+                   value_sec->ltk[0], value_sec->ltk[1], value_sec->ltk[2], value_sec->ltk[3],
+                   value_sec->ltk[4], value_sec->ltk[5], value_sec->ltk[6], value_sec->ltk[7],
+                   value_sec->ltk[8], value_sec->ltk[9], value_sec->ltk[10], value_sec->ltk[11],
+                   value_sec->ltk[12], value_sec->ltk[13], value_sec->ltk[14], value_sec->ltk[15]);
     int rc;
 
     rc = ble_store_persist_sec(BLE_STORE_OBJ_TYPE_PEER_SEC, value_sec);
