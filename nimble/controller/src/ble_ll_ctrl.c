@@ -1477,6 +1477,9 @@ ble_ll_ctrl_is_start_enc_rsp(struct os_mbuf *txpdu)
 int
 ble_ll_ctrl_start_enc_send(struct ble_ll_conn_sm *connsm)
 {
+#if MYNEWT_VAL(CONSOLE_LOG)
+    console_printf("[nimble/controller/src/ble_ll_ctrl.c] ble_ll_ctrl_start_enc_send()\n");
+#endif
     int rc;
     struct os_mbuf *om;
 
@@ -1610,6 +1613,9 @@ static uint8_t
 ble_ll_ctrl_rx_enc_req(struct ble_ll_conn_sm *connsm, uint8_t *dptr,
                        uint8_t *rspdata)
 {
+#if MYNEWT_VAL(CONSOLE_LOG)
+    console_printf("[nimble/controller/src/ble_ll_ctrl.c] ble_ll_ctrl_rx_enc_req()\n");
+#endif
 #if MYNEWT_VAL(BLE_LL_ROLE_CENTRAL)
     if (connsm->conn_role == BLE_LL_CONN_ROLE_CENTRAL) {
         return BLE_LL_CTRL_UNKNOWN_RSP;
@@ -1754,6 +1760,9 @@ ble_ll_ctrl_rx_pause_enc_rsp(struct ble_ll_conn_sm *connsm)
 static uint8_t
 ble_ll_ctrl_rx_start_enc_rsp(struct ble_ll_conn_sm *connsm)
 {
+#if MYNEWT_VAL(CONSOLE_LOG)
+    console_printf("[nimble/controller/src/ble_ll_ctrl.c] ble_ll_ctrl_rx_start_enc_rsp()\n");
+#endif
     int rc;
 
     /* Not in proper state. Discard */

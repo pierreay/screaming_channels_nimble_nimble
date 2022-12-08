@@ -1313,7 +1313,7 @@ ble_sm_ltk_restore_exec(struct ble_sm_proc *proc, struct ble_sm_result *res,
 
     if (value_sec != NULL) {
 #if MYNEWT_VAL(CONSOLE_LOG)
-    console_printf("[nimble/host/src/ble_sm.c] /* Store provided a key; send it to the controller. */");
+    console_printf("[nimble/host/src/ble_sm.c] /* Store provided a key; send it to the controller. */\n");
 #endif
         /* Store provided a key; send it to the controller. */
         res->app_status = ble_sm_ltk_req_reply_tx(
@@ -1330,7 +1330,7 @@ ble_sm_ltk_restore_exec(struct ble_sm_proc *proc, struct ble_sm_result *res,
         }
     } else {
 #if MYNEWT_VAL(CONSOLE_LOG)
-    console_printf("[nimble/host/src/ble_sm.c] /* Application does not have the requested key in its database.\nSend a negative reply to the controller.\n");
+    console_printf("[nimble/host/src/ble_sm.c] /* Application does not have the requested key in its database.\nSend a negative reply to the controller. */\n");
     console_printf("[nimble/host/src/ble_sm.c] The controller doesn't receive any LTK from here.\nNo session key calculation can be processed with the LTK as a key.\n");
 #endif
         /* Application does not have the requested key in its database.  Send a
