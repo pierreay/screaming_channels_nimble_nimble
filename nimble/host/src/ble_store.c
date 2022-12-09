@@ -214,6 +214,9 @@ ble_store_write_our_sec(struct ble_store_value_sec *value_sec)
 int
 ble_store_delete_our_sec(const struct ble_store_key_sec *key_sec)
 {
+#if MYNEWT_VAL(CONSOLE_LOG)
+    console_printf("[nimble/host/ble_store.c] ble_store_delete_our_sec()\n");
+#endif
     union ble_store_key *store_key;
     int rc;
 
@@ -225,6 +228,9 @@ ble_store_delete_our_sec(const struct ble_store_key_sec *key_sec)
 int
 ble_store_delete_peer_sec(const struct ble_store_key_sec *key_sec)
 {
+#if MYNEWT_VAL(CONSOLE_LOG)
+    console_printf("[nimble/host/ble_store.c] ble_store_delete_peer_sec()\n");
+#endif
     union ble_store_key *store_key;
     int rc;
 
@@ -432,6 +438,9 @@ ble_store_iterate(int obj_type,
 int
 ble_store_clear(void)
 {
+#if MYNEWT_VAL(CONSOLE_LOG)
+    console_printf("[nimble/host/ble_store.c] ble_store_clear()\n");
+#endif
     const uint8_t obj_types[] = {
         BLE_STORE_OBJ_TYPE_OUR_SEC,
         BLE_STORE_OBJ_TYPE_PEER_SEC,
