@@ -25,6 +25,7 @@
 #include "nimble/ble.h"
 #include "host/ble_uuid.h"
 #include "ble_hs_priv.h"
+#include <console/console.h>
 
 #if NIMBLE_BLE_CONNECT
 /**
@@ -1451,6 +1452,9 @@ done:
 int
 ble_att_svr_rx_read(uint16_t conn_handle, struct os_mbuf **rxom)
 {
+#if MYNEWT_VAL(CONSOLE_LOG)
+    console_printf("[nimble/host/ble_att_clt.c] ble_att_svr_rx_read()\n");
+#endif
 #if !MYNEWT_VAL(BLE_ATT_SVR_READ)
     return BLE_HS_ENOTSUP;
 #endif
