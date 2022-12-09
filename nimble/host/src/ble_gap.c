@@ -26,6 +26,7 @@
 #include "host/ble_hs_hci.h"
 #include "ble_hs_priv.h"
 #include "ble_gap_priv.h"
+#include <console/console.h>
 
 #if MYNEWT
 #include "bsp/bsp.h"
@@ -2289,7 +2290,9 @@ ble_gap_adv_stop_no_lock(void)
 
     active = ble_gap_adv_active();
 
-    BLE_HS_LOG(INFO, "GAP procedure initiated: stop advertising.\n");
+#if MYNEWT_VAL(CONSOLE_LOG)
+    console_printf("[nimble/host/ble_gap.c] GAP procedure initiated: stop advertising\n");
+#endif
 
     rc = ble_gap_adv_enable_tx(0);
     if (rc != 0) {
@@ -2547,7 +2550,9 @@ ble_gap_adv_start(uint8_t own_addr_type, const ble_addr_t *direct_addr,
         goto done;
     }
 
-    BLE_HS_LOG(INFO, "GAP procedure initiated: advertise; ");
+#if MYNEWT_VAL(CONSOLE_LOG)
+    console_printf("[nimble/host/ble_gap.c] GAP procedure initiated: advertise\n");
+#endif
     ble_gap_log_adv(own_addr_type, direct_addr, adv_params);
     BLE_HS_LOG(INFO, "\n");
 
@@ -4578,7 +4583,9 @@ ble_gap_disc(uint8_t own_addr_type, int32_t duration_ms,
     ble_gap_master.cb = cb;
     ble_gap_master.cb_arg = cb_arg;
 
-    BLE_HS_LOG(INFO, "GAP procedure initiated: discovery; ");
+#if MYNEWT_VAL(CONSOLE_LOG)
+    console_printf("[nimble/host/ble_gap.c] GAP procedure initiated: discovery\n");
+#endif
     ble_gap_log_disc(own_addr_type, duration_ms, &params);
     BLE_HS_LOG(INFO, "\n");
 
@@ -5085,7 +5092,9 @@ ble_gap_connect(uint8_t own_addr_type, const ble_addr_t *peer_addr,
         goto done;
     }
 
-    BLE_HS_LOG(INFO, "GAP procedure initiated: connect; ");
+#if MYNEWT_VAL(CONSOLE_LOG)
+    console_printf("[nimble/host/ble_gap.c] GAP procedure initiated: connect\n");
+#endif    
     ble_gap_log_conn(own_addr_type, peer_addr, conn_params);
     BLE_HS_LOG(INFO, "\n");
 
@@ -5149,9 +5158,11 @@ ble_gap_terminate_with_conn(struct ble_hs_conn *conn, uint8_t hci_reason)
         return BLE_HS_EALREADY;
     }
 
-    BLE_HS_LOG(INFO, "GAP procedure initiated: terminate connection; "
+#if MYNEWT_VAL(CONSOLE_LOG)
+    console_printf("[nimble/host/ble_gap.c] GAP procedure initiated: terminate connection; "
                      "conn_handle=%d hci_reason=%d\n",
                      conn->bhc_handle, hci_reason);
+#endif
 
     cmd.conn_handle = htole16(conn->bhc_handle);
     cmd.reason = hci_reason;
@@ -5233,7 +5244,9 @@ ble_gap_conn_cancel_no_lock(void)
         goto done;
     }
 
-    BLE_HS_LOG(INFO, "GAP procedure initiated: cancel connection\n");
+#if MYNEWT_VAL(CONSOLE_LOG)
+    console_printf("[nimble/host/ble_gap.c] GAP procedure initiated: cancel connection\n");
+#endif
 
     rc = ble_gap_conn_cancel_tx();
     if (rc != 0) {
@@ -5547,7 +5560,9 @@ ble_gap_update_params(uint16_t conn_handle,
     entry->exp_os_ticks = ble_npl_time_get() +
                           ble_npl_time_ms_to_ticks32(BLE_GAP_UPDATE_TIMEOUT_MS);
 
-    BLE_HS_LOG(INFO, "GAP procedure initiated: ");
+#if MYNEWT_VAL(CONSOLE_LOG)
+    console_printf("GAP procedure initiated: ");
+#endif
     ble_gap_log_update(conn_handle, params);
     BLE_HS_LOG(INFO, "\n");
 
