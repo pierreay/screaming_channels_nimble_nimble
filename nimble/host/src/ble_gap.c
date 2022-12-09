@@ -5561,7 +5561,7 @@ ble_gap_update_params(uint16_t conn_handle,
                           ble_npl_time_ms_to_ticks32(BLE_GAP_UPDATE_TIMEOUT_MS);
 
 #if MYNEWT_VAL(CONSOLE_LOG)
-    console_printf("GAP procedure initiated: ");
+    console_printf("[nimble/host/ble_gap.c] GAP procedure initiated: ");
 #endif
     ble_gap_log_update(conn_handle, params);
     BLE_HS_LOG(INFO, "\n");
