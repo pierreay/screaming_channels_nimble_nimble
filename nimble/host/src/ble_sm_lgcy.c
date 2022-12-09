@@ -23,6 +23,7 @@
 #include "nimble/nimble_opt.h"
 #include "host/ble_sm.h"
 #include "ble_hs_priv.h"
+#include <console/console.h>
 
 #if NIMBLE_BLE_CONNECT
 #if MYNEWT_VAL(BLE_SM_LEGACY)
@@ -127,7 +128,9 @@ ble_sm_lgcy_confirm_exec(struct ble_sm_proc *proc, struct ble_sm_result *res)
 
     ble_sm_ia_ra(proc, &iat, ia, &rat, ra);
 
-    BLE_HS_LOG(INFO, "ble_sm_lgcy_confirm_exec()\n");
+#if MYNEWT_VAL(CONSOLE_LOG)
+    console_printf("[nimble/host/ble_sm_lgcy.c] ble_sm_lgcy_confirm_exec()\n");
+#endif
     rc = ble_sm_alg_c1(proc->tk, ble_sm_our_pair_rand(proc), proc->pair_req,
                        proc->pair_rsp, iat, rat, ia, ra, cmd->value);
     if (rc != 0) {
@@ -216,7 +219,9 @@ ble_sm_lgcy_random_rx(struct ble_sm_proc *proc, struct ble_sm_result *res)
 
     ble_sm_ia_ra(proc, &iat, ia, &rat, ra);
 
-    BLE_HS_LOG(INFO, "ble_sm_lgcy_random_rx()\n");
+#if MYNEWT_VAL(CONSOLE_LOG)
+    console_printf("[nimble/host/ble_sm_lgcy.c] ble_sm_lgcy_random_rx()\n");
+#endif
     rc = ble_sm_alg_c1(proc->tk, ble_sm_peer_pair_rand(proc), proc->pair_req,
                        proc->pair_rsp, iat, rat, ia, ra, confirm_val);
     if (rc != 0) {
