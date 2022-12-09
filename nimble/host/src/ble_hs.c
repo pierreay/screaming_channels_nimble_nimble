@@ -29,6 +29,7 @@
 #ifndef MYNEWT
 #include "nimble/nimble_port.h"
 #endif
+#include <console/console.h>
 
 #define BLE_HS_HCI_EVT_COUNT    MYNEWT_VAL(BLE_TRANSPORT_EVT_COUNT)
 
@@ -596,6 +597,9 @@ ble_hs_hw_error(uint8_t hw_code)
 int
 ble_hs_start(void)
 {
+#if MYNEWT_VAL(CONSOLE_LOG)
+    console_printf("[nimble/host/ble_hs.c] ble_hs_start()\n");
+#endif
     int rc;
 
     ble_hs_lock();
