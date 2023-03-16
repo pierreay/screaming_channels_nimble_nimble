@@ -1644,12 +1644,30 @@ ble_ll_ctrl_rx_enc_req(struct ble_ll_conn_sm *connsm, uint8_t *dptr,
     return BLE_LL_CTRL_ENC_RSP;
 #endif
 
+    // Extract the SKD_C (skdc) from the LL_ENC_REQ and put it inside the
+    // second part of the plaintext (which is the final SKD).
     swap_buf(connsm->enc_data.enc_block.plain_text + 8, dptr + 10, 8);
+#if MYNEWT_VAL(CONSOLE_LOG)
+    console_printf("\nSKD_C:");
+    for (int cnt = 8; cnt < 16; ++cnt) {
+        console_printf("%02x", connsm->enc_data.enc_block.plain_text[cnt]);
+    }
+    console_printf("\n");
+#endif
     memcpy(connsm->enc_data.iv, dptr + 18, 4);
 
     /* Create the ENC_RSP. Concatenate our SKD and IV */
+    // Generate the SKD_S (skds) on the fly from random data and put it inside
+    // the first part of the plaintext (which is the final SKD).
     ble_ll_rand_data_get(connsm->enc_data.enc_block.plain_text, 8);
     swap_buf(rspdata, connsm->enc_data.enc_block.plain_text, 8);
+#if MYNEWT_VAL(CONSOLE_LOG)
+    console_printf("SKD_S:");
+    for (int cnt = 0; cnt < 8; ++cnt) {
+        console_printf("%02x", connsm->enc_data.enc_block.plain_text[cnt]);
+    }
+    console_printf("\n");
+#endif
     ble_ll_rand_data_get(connsm->enc_data.iv + 4, 4);
     memcpy(rspdata + 8, connsm->enc_data.iv + 4, 4);
 
