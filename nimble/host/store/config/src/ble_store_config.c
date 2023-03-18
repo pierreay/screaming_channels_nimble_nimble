@@ -81,6 +81,8 @@ ble_store_config_print_key_sec(const struct ble_store_key_sec *key_sec)
     }
 }
 
+// Function that actually compare the BD_ADDR, RAND, EDIV to retrieve a LTK
+// inside the security database.
 static int
 ble_store_config_find_sec(const struct ble_store_key_sec *key_sec,
                           const struct ble_store_value_sec *value_secs,
