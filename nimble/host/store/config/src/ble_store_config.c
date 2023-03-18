@@ -445,6 +445,7 @@ ble_store_config_read(int obj_type, const union ble_store_key *key,
         rc = ble_store_config_read_peer_sec(&key->sec, &value->sec);
         return rc;
 
+    // Find the code used for LTK (key) lookup in the security database.
     case BLE_STORE_OBJ_TYPE_OUR_SEC:
         BLE_HS_LOG(DEBUG, "looking up our sec; ");
         ble_store_config_print_key_sec(&key->sec);

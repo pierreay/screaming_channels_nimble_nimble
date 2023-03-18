@@ -37,6 +37,8 @@ extern "C" {
 /** About to execute a procedure that may fail due to overflow. */
 #define BLE_STORE_EVENT_FULL            2
 
+// Find the structure used for LTK (key) lookup in the security database.
+// As the specification says, it use the BD_ADDR, EDIV, and RAND.
 /**
  * Used as a key for lookups of security material.  This struct corresponds to
  * the following store object types:
