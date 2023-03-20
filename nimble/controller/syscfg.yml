@@ -17,6 +17,11 @@
 #
 
 syscfg.defs:
+    BLE_LL_INSTR_SKDS_FIXED_ENABLE:
+        description: >
+            Enable using a fixed SKD_S value (0xdeadbeefdeadbeef).
+        value: 0
+
     BLE_LL_ENCRYPT_DEBUG_DISABLE:
         description: >
             If set to 1, unset the BLE_LL_ENCRYPT_DEBUG flag.
