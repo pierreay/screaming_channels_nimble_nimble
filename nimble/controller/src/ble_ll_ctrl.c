@@ -1337,10 +1337,14 @@ ble_ll_calc_session_key(struct ble_ll_conn_sm *connsm)
     for (cnt = 0; cnt < 16; ++cnt) {
         console_printf("%02x", connsm->enc_data.enc_block.key[cnt]);
     }
+    console_printf("\nLTK[0]:%02x", (uint8_t *) connsm->enc_data.enc_block.key[0]);
+    
     console_printf("\nSKD:");
     for (cnt = 0; cnt < 16; ++cnt) {
         console_printf("%02x", connsm->enc_data.enc_block.plain_text[cnt]);
     }
+    console_printf("\nSKD[0]:%02x", (uint8_t *) connsm->enc_data.enc_block.plain_text[0]);
+    
     console_printf("\nSession Key:");
     for (cnt = 0; cnt < 16; ++cnt) {
         console_printf("%02x", connsm->enc_data.enc_block.cipher_text[cnt]);
