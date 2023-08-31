@@ -24,6 +24,9 @@
 extern "C" {
 #endif
 
+#include <stdint.h>
+extern uint8_t * g_ble_phy_data_ptr;
+
 #define XCVR_RX_RADIO_RAMPUP_USECS  (40)
 #define XCVR_TX_RADIO_RAMPUP_USECS  (40)
 
