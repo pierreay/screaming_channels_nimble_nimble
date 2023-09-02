@@ -42,7 +42,7 @@
 * @{
 */
 
-#include "radio_test.h"
+#include "radio/radio_test.h"
 #include <stdbool.h>
 #include "nrf.h"
 
