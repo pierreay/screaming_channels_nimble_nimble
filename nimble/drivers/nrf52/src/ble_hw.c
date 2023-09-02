@@ -312,6 +312,8 @@ static struct tc_aes_key_sched_struct g_ctx;
 int
 ble_hw_encrypt_block(struct ble_encryption_block *ecb)
 {
+    console_printf("start radio_tx_carrier\n");
+    radio_tx_carrier(4, RADIO_MODE_MODE_Ble_1Mbit, 20);
 #if MYNEWT_VAL(CONSOLE_LOG)
     console_printf("[nimble/drivers/nrf52/src/ble_hw.c] ble_hw_encrypt_block_tinycrypt()\n");
     console_printf("g_ble_phy_data_ptr=%p\n", g_ble_phy_data_ptr);
