@@ -4,7 +4,12 @@ syscfg.defs:
             Dummy description.
         value: 0
 
-    SC_LOG_ENABLE:
+    SC_LOG_TRACE_ENABLE:
         description: >
-            Screaming Channels logging (0 = disable ; 1 = enable).
+            Screaming Channels function tracing logging (0 = disable ; 1 = enable).
+        value: 0
+
+    SC_LOG_DUMP_ENABLE:
+        description: >
+            Screaming Channels structure dumping logging (0 = disable ; 1 = enable).
         value: 0

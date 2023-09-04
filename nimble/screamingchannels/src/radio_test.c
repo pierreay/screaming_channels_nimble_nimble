@@ -153,7 +153,7 @@ static void generate_modulated_rf_packet(void)
 
 static void radio_disable(void)
 {
-#if MYNEWT_VAL(SC_LOG_ENABLE)
+#if MYNEWT_VAL(SC_LOG_TRACE_ENABLE)
     console_printf("radio_disable()\n");
 #endif
     NRF_RADIO->SHORTS          = 0;
@@ -184,7 +184,7 @@ void radio_sweep_end(void)
 void radio_tx_carrier(uint8_t txpower, uint8_t mode, uint8_t channel)
 {
     radio_disable();
-#if MYNEWT_VAL(SC_LOG_ENABLE)
+#if MYNEWT_VAL(SC_LOG_TRACE_ENABLE)
     console_printf("radio_tx_carrier(txpower=%d,mode=%d,channel=%d)\n", txpower, mode, channel);
 #endif
     NRF_RADIO->SHORTS     = RADIO_SHORTS_READY_START_Msk;
