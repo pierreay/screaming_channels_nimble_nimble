@@ -39,5 +39,5 @@ void dump_ble_addr(uint8_t * addr)
 
 char * get_ble_ll_conn_enc_state(uint8_t enc_state)
 {
-    return ENC_STATES[enc_state];
+    return ENC_STATES[enc_state - 1];
 }
