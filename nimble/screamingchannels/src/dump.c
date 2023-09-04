@@ -34,7 +34,7 @@ void dump_ble_ll_conn_sm(struct ble_ll_conn_sm *connsm)
 void dump_ble_addr(uint8_t * addr)
 {
     // Reference in ble.h
-    console_printf("%hhx:%hhx:%hhx:%hhx:%hhx:%hhx", addr[0], addr[1], addr[2], addr[3], addr[4], addr[5]);
+    console_printf("%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx", addr[5], addr[4], addr[3], addr[2], addr[1], addr[0]);
 }
 
 char * get_ble_ll_conn_enc_state(uint8_t enc_state)
