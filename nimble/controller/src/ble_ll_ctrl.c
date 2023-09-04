@@ -32,6 +32,7 @@
 #include "controller/ble_ll_sync.h"
 #include "controller/ble_ll_tmr.h"
 #include "ble_ll_conn_priv.h"
+#include "screamingchannels/dump.h"
 #include "console/console.h"
 
 #if MYNEWT_VAL(BLE_LL_ROLE_PERIPHERAL) || MYNEWT_VAL(BLE_LL_ROLE_CENTRAL)
@@ -1322,6 +1323,9 @@ ble_ll_calc_session_key(struct ble_ll_conn_sm *connsm)
     console_printf("[nimble/controller/src/ble_ll_ctrl.c] ble_ll_calc_session_key()\n");
 #endif
 
+#if MYNEWT_VAL(SC_LOG_DUMP_ENABLE)
+    dump_ble_ll_conn_sm(connsm);
+#endif
     /* XXX: possibly have some way out of this if this locks up */
     while (1) {
         if (!ble_hw_encrypt_block(&connsm->enc_data.enc_block)) {

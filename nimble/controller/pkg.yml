@@ -40,6 +40,7 @@ pkg.deps:
     - "@apache-mynewt-core/sys/console/full"
     - nimble
     - nimble/transport
+    - nimble/screamingchannels
 
 pkg.cflags:
     - -DBLE_LL_ENCRYPT_DEBUG
