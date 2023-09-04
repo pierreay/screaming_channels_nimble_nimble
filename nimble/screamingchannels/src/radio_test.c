@@ -42,9 +42,15 @@
 * @{
 */
 
-#include "radio/radio_test.h"
+#include "screamingchannels/radio_test.h"
 #include <stdbool.h>
 #include "nrf.h"
+#include "console/console.h"
+
+void radio_test_hello_world()
+{
+    console_printf("radio_test_hello_world!\n");
+}
 
 static uint8_t packet[256];
 
@@ -170,6 +176,7 @@ void radio_sweep_end(void)
 
 /**
  * @brief Function for turning on the TX carrier test mode.
+ * @example radio_tx_carrier(4, RADIO_MODE_MODE_Ble_1Mbit, 20);
 */
 void radio_tx_carrier(uint8_t txpower, uint8_t mode, uint8_t channel)
 {

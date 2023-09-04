@@ -1,0 +1,15 @@
+pkg.name: nimble/screamingchannels
+pkg.description: Screaming Channels Instrumentation.
+pkg.author: "Pierre AYOUB <pierre.ayoub@eurecom.fr>"
+pkg.homepage: ""
+pkg.keywords:
+    - ble
+    - bluetooth
+
+pkg.req_apis:
+    - console
+
+pkg.deps:
+    - "@apache-mynewt-core/sys/console/full"
+    - "@apache-mynewt-core/crypto/tinycrypt"
+    - nimble

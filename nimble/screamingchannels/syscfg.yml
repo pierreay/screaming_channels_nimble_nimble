@@ -1,0 +1,5 @@
+syscfg.defs:
+    DUMMY_VARIABLE:
+        description: >
+            Dummy description.
+        value: 0

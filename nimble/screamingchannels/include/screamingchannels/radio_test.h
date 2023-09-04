@@ -46,14 +46,13 @@
 extern "C" {
 #endif
 
-
+void radio_test_hello_world();
 void radio_tx_carrier(uint8_t txpower, uint8_t mode, uint8_t channel);
 void radio_modulated_tx_carrier(uint8_t txpower, uint8_t mode, uint8_t channel);
 void radio_rx_carrier(uint8_t mode, uint8_t channel);
 void radio_tx_sweep_start(uint8_t txpower, uint8_t mode, uint8_t channel_start, uint8_t channel_end, uint8_t delayms);
 void radio_rx_sweep_start(uint8_t mode, uint8_t channel_start, uint8_t channel_end, uint8_t delayms);
 void radio_sweep_end(void);
-
 
 #ifdef __cplusplus
 }
