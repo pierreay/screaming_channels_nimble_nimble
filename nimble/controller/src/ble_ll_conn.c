@@ -1176,7 +1176,7 @@ ble_ll_conn_tx_pdu(struct ble_ll_conn_sm *connsm)
         /* Get next event time */
         next_event_time = ble_ll_conn_get_next_sched_time(connsm);
 
-        /* XXX: TODO: need to check this with phy update procedure. There are
+        /* XXX: TODO : need to check this with phy update procedure. There are
            limitations if we have started update */
 
         /*
@@ -1611,7 +1611,7 @@ ble_ll_conn_can_send_next_pdu(struct ble_ll_conn_sm *connsm, uint32_t begtime,
             pkthdr = OS_MBUF_PKTHDR(txpdu);
         }
 
-        /* XXX: TODO: need to check this with phy update procedure. There are
+        /* XXX: TODO : need to check this with phy update procedure. There are
            limitations if we have started update */
         if (txpdu) {
             txhdr = BLE_MBUF_HDR_PTR(txpdu);
@@ -2280,7 +2280,7 @@ ble_ll_conn_next_event(struct ble_ll_conn_sm *connsm)
      */
 
     /*
-     * XXX TODO: I think this is technically incorrect. We can allow peripheral
+     * XXX TODO : I think this is technically incorrect. We can allow peripheral
      * latency if we are doing one of these updates as long as we
      * know that the central has received the ACK to the PDU that set
      * the instant

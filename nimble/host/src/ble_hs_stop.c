@@ -139,7 +139,7 @@ ble_hs_stop_terminate_timeout_cb(struct ble_npl_event *ev)
     BLE_HS_LOG(ERROR, "ble_hs_stop_terminate_timeout_cb,"
                       "%d connection(s) still up \n", ble_hs_stop_conn_cnt);
 
-    /* TODO: Shall we send error here? */
+    /* TODO : Shall we send error here? */
     ble_hs_stop_done(0);
 }
 

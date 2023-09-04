@@ -918,7 +918,7 @@ ble_ll_ctrl_rx_phy_req(struct ble_ll_conn_sm *connsm, uint8_t *req,
             CONN_F_PHY_UPDATE_EVENT(connsm) = 0;
         }
 
-        /* XXX: TODO: if we started another procedure with an instant
+        /* XXX: TODO : if we started another procedure with an instant
          * why are we doing this? Need to look into this.*/
 
         /* Respond to central's phy update procedure */

@@ -577,7 +577,7 @@ int bt_mesh_lpn_friend_offer(struct bt_mesh_net_rx *rx,
 			return err;
 		}
 	}
-	/* TODO: Add offer acceptance criteria check */
+	/* TODO : Add offer acceptance criteria check */
 
 	lpn->recv_win = msg->recv_win;
 	lpn->queue_size = msg->queue_size;

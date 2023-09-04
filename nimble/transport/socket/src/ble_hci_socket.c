@@ -850,4 +850,4 @@ ble_transport_to_ll_cmd_impl(void *buf)
     return ble_hci_trans_hs_cmd_tx(buf);
 }
 
-/* TODO: add ll-to-hs side if needed */
+/* TODO : add ll-to-hs side if needed */

@@ -56,7 +56,7 @@ int bt_mesh_provision(const uint8_t net_key[16], uint16_t net_idx,
 	}
 
 	/*
-	 * FIXME:
+	 * FIXME :
 	 * Should net_key and iv_index be over-ridden?
 	 */
 	if (IS_ENABLED(CONFIG_BT_MESH_CDB) &&

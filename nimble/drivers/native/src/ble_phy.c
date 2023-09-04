@@ -123,7 +123,7 @@ STATS_NAME_START(ble_phy_stats)
     STATS_NAME(ble_phy_stats, tx_hw_err)
 STATS_NAME_END(ble_phy_stats)
 
-/* XXX: TODO:
+/* XXX: TODO :
 
  * 1) Test the following to make sure it works: suppose an event is already
  * set to 1 and the interrupt is not enabled. What happens if you enable the

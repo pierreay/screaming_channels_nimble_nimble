@@ -313,7 +313,7 @@ syscfg.defs:
         description: 'CTS pin for UART1'
         value: -1
 
-    TEMP:
+    TEMP :
         description: 'Enable nRF52xxx internal temperature mesurement'
         value:  0
 

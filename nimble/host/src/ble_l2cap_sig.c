@@ -786,7 +786,7 @@ ble_l2cap_sig_credit_base_reconfig_req_rx(uint16_t conn_handle,
     rsp = ble_l2cap_sig_cmd_get(BLE_L2CAP_SIG_OP_CREDIT_RECONFIG_RSP,
                                     hdr->identifier, sizeof(*rsp) , &txom);
     if (!rsp) {
-        /* TODO: Reuse request buffer for the response. For now in such a case
+        /* TODO : Reuse request buffer for the response. For now in such a case
          * remote will timeout.
          */
         BLE_HS_LOG(ERROR, "No memory for the response\n");

@@ -52,7 +52,7 @@ static uint16_t ble_svc_ans_unr_alert_val_handle;
 
 /* Connection handle
  *
- * TODO: In order to support multiple connections we would need to save
+ * TODO : In order to support multiple connections we would need to save
  *       the handles for every connection, not just the most recent. Then
  *       we would need to notify each connection when needed.
  * */

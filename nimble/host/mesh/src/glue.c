@@ -776,7 +776,7 @@ bt_le_adv_start(const struct ble_gap_adv_params *param,
         }
     }
 
-    /*TODO: We could use duration and max events in the future */
+    /*TODO : We could use duration and max events in the future */
     err = ble_gap_ext_adv_start(instance, 0, 0);
     return err;
 

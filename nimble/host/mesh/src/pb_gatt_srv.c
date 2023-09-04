@@ -315,7 +315,7 @@ int bt_mesh_pb_gatt_enable(void)
 	rc = ble_gatts_find_svc(BLE_UUID16_DECLARE(BT_UUID_MESH_PROV_VAL), &handle);
 	assert(rc == 0);
 	ble_gatts_svc_set_visibility(handle, 1);
-	/* FIXME: figure out end handle */
+	/* FIXME : figure out end handle */
 	ble_svc_gatt_changed(svc_handles.prov_h, 0xffff);
 
 	service_registered = true;
@@ -338,7 +338,7 @@ int bt_mesh_pb_gatt_disable(void)
 	rc = ble_gatts_find_svc(BLE_UUID16_DECLARE(BT_UUID_MESH_PROV_VAL), &handle);
 	assert(rc == 0);
 	ble_gatts_svc_set_visibility(handle, 0);
-	/* FIXME: figure out end handle */
+	/* FIXME : figure out end handle */
 	ble_svc_gatt_changed(svc_handles.prov_h, 0xffff);
 	service_registered = false;
 

@@ -514,7 +514,7 @@ static void send_data(const uint8_t *data, uint16_t len)
 		goto fail;
 	}
 
-	/* FIXME: For now, fail if data length exceeds buffer length */
+	/* FIXME : For now, fail if data length exceeds buffer length */
 	if (data_len > TESTER_COC_MTU) {
 		SYS_LOG_ERR("Data length exceeds buffer length");
 		goto fail;
@@ -600,7 +600,7 @@ static void listen(const uint8_t *data, uint16_t len)
 	rsp = l2cap_btp_listen_err2coc_err(rsp);
 	rsp = l2cap_coc_err2hs_err(rsp);
 
-	/* TODO: Handle cmd->transport flag */
+	/* TODO : Handle cmd->transport flag */
 	rc = ble_l2cap_create_server(cmd->psm, mtu, tester_l2cap_event,
 				     INT_TO_POINTER(rsp));
 	if (rc) {

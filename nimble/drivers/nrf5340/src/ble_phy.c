@@ -1432,7 +1432,7 @@ ble_phy_init(void)
 #if MYNEWT_VAL(BLE_LL_PA) || MYNEWT_VAL(BLE_LL_LNA)
     /* We keep both channels enabled and CLR task subscribed all the time. It's
      * enough to just (un)subscribe SET task when needed.
-     * TODO: figure out if this affects power consumption
+     * TODO : figure out if this affects power consumption
      */
 
 #if PLNA_SINGLE_GPIO

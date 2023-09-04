@@ -225,7 +225,7 @@ ble_l2cap_coc_rx_fn(struct ble_l2cap_chan *chan)
 
         rc = os_mbuf_appendfrom(rx->sdu, *om, 0, om_total - BLE_L2CAP_SDU_SIZE);
         if (rc != 0) {
-            /* FIXME: User shall give us big enough buffer.
+            /* FIXME : User shall give us big enough buffer.
              * need to handle it better
              */
             BLE_HS_LOG(INFO, "Could not append data rc=%d\n", rc);
@@ -249,7 +249,7 @@ ble_l2cap_coc_rx_fn(struct ble_l2cap_chan *chan)
         }
         rc  = os_mbuf_appendfrom(rx->sdu, *om, 0, om_total);
         if (rc != 0) {
-            /* FIXME: need to handle it better */
+            /* FIXME : need to handle it better */
             BLE_HS_LOG(DEBUG, "Could not append data rc=%d\n", rc);
             assert(0);
         }

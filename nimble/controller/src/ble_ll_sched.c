@@ -68,7 +68,7 @@ static struct ble_ll_sched_css g_ble_ll_sched_css = {
 typedef int (* ble_ll_sched_preempt_cb_t)(struct ble_ll_sched_item *sch,
                                           struct ble_ll_sched_item *item);
 
-/* XXX: TODO:
+/* XXX: TODO :
  *  1) Add some accounting to the schedule code to see how late we are
  *  (min/max?)
  *
@@ -1105,7 +1105,7 @@ ble_ll_sched_scan_aux(struct ble_ll_sched_item *sch, uint32_t pdu_time,
 
     sch->start_time = pdu_time + offset_ticks - g_ble_ll_sched_offset_ticks;
     sch->remainder = offset_us - ble_ll_tmr_t2u(offset_ticks);
-    /* TODO: make some sane slot reservation */
+    /* TODO : make some sane slot reservation */
     sch->end_time = sch->start_time + ble_ll_tmr_u2t(5000);
 
     OS_ENTER_CRITICAL(sr);

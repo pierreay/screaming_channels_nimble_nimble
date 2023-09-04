@@ -110,8 +110,8 @@ ble_npl_callout_init(struct ble_npl_callout *c,
 bool
 ble_npl_callout_is_active(struct ble_npl_callout *c)
 {
-    /* TODO: seek native posix method to determine whether timer_t is active.
-       TODO: fix bug where one-shot timer is still active after fired. */
+    /* TODO : seek native posix method to determine whether timer_t is active.
+       TODO : fix bug where one-shot timer is still active after fired. */
 
     return c->c_active;
 }

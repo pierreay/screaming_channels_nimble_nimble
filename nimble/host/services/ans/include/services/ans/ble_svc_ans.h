@@ -34,7 +34,7 @@ struct ble_hs_cfg;
 
 /* Alert Notification Service Category ID Bit Masks
  *
- * TODO: Add remaining 2 optional categories */
+ * TODO : Add remaining 2 optional categories */
 #define BLE_SVC_ANS_CAT_BM_NONE                             0x00
 #define BLE_SVC_ANS_CAT_BM_SIMPLE_ALERT                     0x01
 #define BLE_SVC_ANS_CAT_BM_EMAIL                            0x02
@@ -47,7 +47,7 @@ struct ble_hs_cfg;
 
 /* Alert Notification Service Category IDs
  *
- * TODO: Add remaining 2 optional categories */
+ * TODO : Add remaining 2 optional categories */
 #define BLE_SVC_ANS_CAT_ID_SIMPLE_ALERT                     0
 #define BLE_SVC_ANS_CAT_ID_EMAIL                            1
 #define BLE_SVC_ANS_CAT_ID_NEWS                             2
@@ -59,7 +59,7 @@ struct ble_hs_cfg;
 
 /* Number of valid ANS categories
  *
- * TODO: Add remaining 2 optional categories */
+ * TODO : Add remaining 2 optional categories */
 #define BLE_SVC_ANS_CAT_NUM                                 8
 
 /* Alert Notification Control Point Command IDs */
