@@ -27,6 +27,9 @@ void dump_ble_ll_conn_sm(struct ble_ll_conn_sm *connsm)
     console_printf("peer_addr=");
     dump_ble_addr(connsm->peer_addr);
     console_printf("\n");
+    console_printf("chanmap=");
+    dump_ble_chanmap(connsm->chanmap);
+    console_printf("\n");
     char * enc_state = get_ble_ll_conn_enc_state(connsm->enc_data.enc_state);
     console_printf("enc_data.enc_state=%s\n", enc_state);
 }
@@ -35,6 +38,12 @@ void dump_ble_addr(uint8_t * addr)
 {
     // Reference in ble.h
     console_printf("%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx", addr[5], addr[4], addr[3], addr[2], addr[1], addr[0]);
+}
+
+void dump_ble_chanmap(uint8_t * chanmap)
+{
+    // Reference in ble_ll.h
+    console_printf("0x%02hhx%02hhx%02hhx%02hhx%02hhx", chanmap[4], chanmap[3], chanmap[2], chanmap[1], chanmap[0]);
 }
 
 char * get_ble_ll_conn_enc_state(uint8_t enc_state)
