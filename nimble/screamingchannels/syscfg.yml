@@ -3,3 +3,8 @@ syscfg.defs:
         description: >
             Dummy description.
         value: 0
+
+    SC_LOG_ENABLE:
+        description: >
+            Screaming Channels logging (0 = disable ; 1 = enable).
+        value: 0
