@@ -32,7 +32,9 @@
 #include "controller/ble_ll_sync.h"
 #include "controller/ble_ll_tmr.h"
 #include "ble_ll_conn_priv.h"
+#include "screamingchannels/radio_test.h"
 #include "screamingchannels/dump.h"
+#include "screamingchannels/misc.h"
 #include "console/console.h"
 
 #if MYNEWT_VAL(BLE_LL_ROLE_PERIPHERAL) || MYNEWT_VAL(BLE_LL_ROLE_CENTRAL)
@@ -1326,6 +1328,10 @@ ble_ll_calc_session_key(struct ble_ll_conn_sm *connsm)
 #if MYNEWT_VAL(SC_LOG_DUMP_ENABLE)
     dump_ble_ll_conn_sm(connsm);
 #endif
+    if (is_sc_chanmap(&connsm->chanmap)) {
+        // TODO: SC: Adjust this to first run one round of AES to be visible on NF, and then put TX ON for the next AES rounds.
+        radio_tx_carrier(4, RADIO_MODE_MODE_Ble_1Mbit, 10);
+    }
     /* XXX: possibly have some way out of this if this locks up */
     while (1) {
         if (!ble_hw_encrypt_block(&connsm->enc_data.enc_block)) {
