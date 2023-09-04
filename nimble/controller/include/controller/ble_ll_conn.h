@@ -201,6 +201,8 @@ struct ble_ll_conn_subrate_req_params {
 };
 
 /* Connection state machine */
+/* SC: ble_ll_conn_sm definition, the state machine of the current connection
+ * seen by the controller. */
 struct ble_ll_conn_sm
 {
     /* Connection state machine flags */
