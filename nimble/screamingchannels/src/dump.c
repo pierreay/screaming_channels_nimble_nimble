@@ -30,6 +30,28 @@ void dump_ble_ll_conn_sm(struct ble_ll_conn_sm *connsm)
     console_printf("enc_data.enc_state=%s\n", enc_state);
 }
 
+void dump_ble_ll_conn_enc_data(struct ble_ll_conn_enc_data *enc_data)
+{
+    int cnt;
+    console_printf("\nLTK:");
+    for (cnt = 0; cnt < 16; ++cnt) {
+        console_printf("%02x", enc_data->enc_block.key[cnt]);
+    }
+    console_printf("\nSKD:");
+    for (cnt = 0; cnt < 16; ++cnt) {
+        console_printf("%02x", enc_data->enc_block.plain_text[cnt]);
+    }
+    console_printf("\nSession Key:");
+    for (cnt = 0; cnt < 16; ++cnt) {
+        console_printf("%02x", enc_data->enc_block.cipher_text[cnt]);
+    }
+    console_printf("\nIV:");
+    for (cnt = 0; cnt < 8; ++ cnt) {
+        console_printf("%02x", enc_data->iv[cnt]);
+    }
+    console_printf("\n");
+}
+
 void dump_ble_addr(uint8_t * addr)
 {
     // Reference in ble.h
