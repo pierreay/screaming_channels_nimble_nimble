@@ -3,16 +3,12 @@
 #include "console/console.h"
 
 // Reference in ble_ll_conn.h
-char * ENC_STATES[10] = {"CONN_ENC_S_UNENCRYPTED", 
-                         "CONN_ENC_S_ENCRYPTED",
-                         "CONN_ENC_S_ENC_RSP_TO_BE_SENT",
-                         "CONN_ENC_S_ENC_RSP_WAIT",
-                         "CONN_ENC_S_PAUSE_ENC_RSP_WAIT",
-                         "CONN_ENC_S_PAUSED",
-                         "CONN_ENC_S_START_ENC_REQ_WAIT",
-                         "CONN_ENC_S_START_ENC_RSP_WAIT",
-                         "CONN_ENC_S_LTK_REQ_WAIT",
-                         "CONN_ENC_S_LTK_NEG_REPL"};
+char *ENC_STATES[10] = {
+    "CONN_ENC_S_UNENCRYPTED",        "CONN_ENC_S_ENCRYPTED",
+    "CONN_ENC_S_ENC_RSP_TO_BE_SENT", "CONN_ENC_S_ENC_RSP_WAIT",
+    "CONN_ENC_S_PAUSE_ENC_RSP_WAIT", "CONN_ENC_S_PAUSED",
+    "CONN_ENC_S_START_ENC_REQ_WAIT", "CONN_ENC_S_START_ENC_RSP_WAIT",
+    "CONN_ENC_S_LTK_REQ_WAIT",       "CONN_ENC_S_LTK_NEG_REPL"};
 
 void dump_ble_ll_conn_sm(struct ble_ll_conn_sm *connsm)
 {
