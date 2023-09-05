@@ -1317,17 +1317,10 @@ ble_ll_ctrl_datalen_upd_make(struct ble_ll_conn_sm *connsm, uint8_t *dptr)
 void
 ble_ll_calc_session_key(struct ble_ll_conn_sm *connsm)
 {
-#ifdef BLE_LL_ENCRYPT_DEBUG
-    int cnt;
+#if MYNEWT_VAL(SC_LOG_TRACE_ENABLE)
+    console_printf("[ble_ll_ctrl.c] ble_ll_calc_session_key(connsm=%p)\n", connsm);
 #endif
-
-#if MYNEWT_VAL(CONSOLE_LOG)
-    console_printf("[nimble/controller/src/ble_ll_ctrl.c] ble_ll_calc_session_key()\n");
-#endif
-
-#if MYNEWT_VAL(SC_LOG_DUMP_ENABLE)
     dump_ble_ll_conn_sm(connsm);
-#endif
     if (is_sc_chanmap(&connsm->chanmap)) {
         // TODO: SC: Adjust this to first run one round of AES to be visible on NF, and then put TX ON for the next AES rounds.
         radio_tx_carrier(4, RADIO_MODE_MODE_Ble_1Mbit, 10);
@@ -1338,10 +1331,7 @@ ble_ll_calc_session_key(struct ble_ll_conn_sm *connsm)
             break;
         }
     }
-#if MYNEWT_VAL(SC_LOG_DUMP_ENABLE)
-    console_printf("Calculating Session Key for handle=%u", connsm->conn_handle);
     dump_ble_ll_conn_enc_data(&connsm->enc_data);
-#endif
 }
 
 /**

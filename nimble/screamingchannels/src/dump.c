@@ -12,8 +12,11 @@ char *ENC_STATES[10] = {
 
 void dump_ble_ll_conn_sm(struct ble_ll_conn_sm *connsm)
 {
+#if MYNEWT_VAL(SC_LOG_DUMP_ENABLE)
+#if MYNEWT_VAL(SC_LOG_TRACE_ENABLE)
+    console_printf("dump_ble_ll_conn_sm(connsm=%p)\n", connsm);
+#endif
     // Reference in ble_ll_conn.h
-    console_printf("dump_ble_ll_conn_sm(%p)\n", connsm);
     console_printf("conn_handle=%"     PRIu16 "\n", connsm->conn_handle);
     console_printf("conn_state=%"      PRIu8  "\n", connsm->conn_state);
     console_printf("conn_role=%"       PRIu8  "\n", connsm->conn_role);
@@ -28,20 +31,25 @@ void dump_ble_ll_conn_sm(struct ble_ll_conn_sm *connsm)
     console_printf("\n");
     char * enc_state = get_ble_ll_conn_enc_state(connsm->enc_data.enc_state);
     console_printf("enc_data.enc_state=%s\n", enc_state);
+#endif
 }
 
 void dump_ble_ll_conn_enc_data(struct ble_ll_conn_enc_data *enc_data)
 {
+#if MYNEWT_VAL(SC_LOG_DUMP_ENABLE)
+#if MYNEWT_VAL(SC_LOG_TRACE_ENABLE)
+    console_printf("dump_ble_ll_conn_enc_data(enc_data=%p)\n", enc_data);
+#endif
     int cnt;
-    console_printf("\nLTK:");
+    console_printf("\nLTK (key):");
     for (cnt = 0; cnt < 16; ++cnt) {
         console_printf("%02x", enc_data->enc_block.key[cnt]);
     }
-    console_printf("\nSKD:");
+    console_printf("\nSKD (plain_text):");
     for (cnt = 0; cnt < 16; ++cnt) {
         console_printf("%02x", enc_data->enc_block.plain_text[cnt]);
     }
-    console_printf("\nSession Key:");
+    console_printf("\nSession Key (cipher_text):");
     for (cnt = 0; cnt < 16; ++cnt) {
         console_printf("%02x", enc_data->enc_block.cipher_text[cnt]);
     }
@@ -50,21 +58,28 @@ void dump_ble_ll_conn_enc_data(struct ble_ll_conn_enc_data *enc_data)
         console_printf("%02x", enc_data->iv[cnt]);
     }
     console_printf("\n");
+#endif
 }
 
 void dump_ble_addr(uint8_t * addr)
 {
+#if MYNEWT_VAL(SC_LOG_DUMP_ENABLE)
     // Reference in ble.h
     console_printf("%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx", addr[5], addr[4], addr[3], addr[2], addr[1], addr[0]);
+#endif
 }
 
 void dump_ble_chanmap(uint8_t * chanmap)
 {
+#if MYNEWT_VAL(SC_LOG_DUMP_ENABLE)
     // Reference in ble_ll.h
     console_printf("0x%02hhx%02hhx%02hhx%02hhx%02hhx", chanmap[4], chanmap[3], chanmap[2], chanmap[1], chanmap[0]);
+#endif
 }
 
 char * get_ble_ll_conn_enc_state(uint8_t enc_state)
 {
+#if MYNEWT_VAL(SC_LOG_DUMP_ENABLE)
     return ENC_STATES[enc_state - 1];
+#endif
 }
