@@ -37,6 +37,7 @@
 #include <hal/nrf_rng.h>
 #include "hal/nrf_ecb.h"
 #include "console/console.h"
+#include "screamingchannels/dump.h"
 
 /* Total number of resolving list elements */
 #define BLE_HW_RESOLV_LIST_SIZE     (16)
@@ -315,14 +316,17 @@ ble_hw_encrypt_block(struct ble_encryption_block *ecb)
 #if MYNEWT_VAL(SC_LOG_TRACE_ENABLE)
     console_printf("[ble_hw.c] ble_hw_encrypt_block(ecb=%p)\n", ecb);
 #endif
-    
-#if MYNEWT_VAL(TINYCRYPT_INSTR_LOOP_ENABLE)
+
+    #if MYNEWT_VAL(TINYCRYPT_INSTR_LOOP_ENABLE)
     for (int j = 0; j < MYNEWT_VAL(TINYCRYPT_INSTR_LOOP_NB); j++) {
+#if MYNEWT_VAL(SC_LOG_TRACE_ENABLE)
+        console_printf("[v] TINYCRYPT_INSTR_LOOP_NB=%d\n", j);
 #endif
-        
-    tc_aes128_set_encrypt_key(&g_ctx, ecb->key);
-    tc_aes_encrypt(ecb->cipher_text, ecb->plain_text, &g_ctx);
-    
+#endif
+        tc_aes128_set_encrypt_key(&g_ctx, ecb->key);
+        // dump_tc_aes_key_sched_struct(&g_ctx);
+        tc_aes_encrypt(ecb->cipher_text, ecb->plain_text, &g_ctx);
+        dump_ble_encryption_block(ecb);
 #if MYNEWT_VAL(TINYCRYPT_INSTR_LOOP_ENABLE)
     }
 #endif
