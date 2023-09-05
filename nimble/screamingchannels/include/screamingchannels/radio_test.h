@@ -47,6 +47,7 @@ extern "C" {
 #endif
 
 void radio_test_hello_world();
+void radio_disable(void);
 void radio_tx_carrier(uint8_t txpower, uint8_t mode, uint8_t channel);
 void radio_modulated_tx_carrier(uint8_t txpower, uint8_t mode, uint8_t channel);
 void radio_rx_carrier(uint8_t mode, uint8_t channel);
