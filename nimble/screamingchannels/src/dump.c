@@ -10,6 +10,46 @@ char *ENC_STATES[10] = {
     "CONN_ENC_S_START_ENC_REQ_WAIT", "CONN_ENC_S_START_ENC_RSP_WAIT",
     "CONN_ENC_S_LTK_REQ_WAIT",       "CONN_ENC_S_LTK_NEG_REPL"};
 
+// Use with care as it introduces too much timing to complete a pairing.
+void dump_tc_aes_key_sched_struct(struct tc_aes_key_sched_struct *g_ctx)
+{
+    // See aes.h::64 for structure definition.
+#if MYNEWT_VAL(SC_LOG_DUMP_ENABLE)
+#if MYNEWT_VAL(SC_LOG_TRACE_ENABLE)
+    console_printf("[dump.c] dump_tc_aes_key_sched_struct(g_ctx=%p)\n", g_ctx);
+#endif
+    console_printf("[v] g_ctx->words=");
+    for (int i = 0; i < Nb*(Nr+1); i++) {
+        console_printf("0x%08x", g_ctx->words[i]);
+    }
+    console_printf("\n");
+#endif
+}
+
+void dump_ble_encryption_block(struct ble_encryption_block *ecb)
+{
+    // See ble.h::41 for structure definition.
+#if MYNEWT_VAL(SC_LOG_DUMP_ENABLE)
+#if MYNEWT_VAL(SC_LOG_TRACE_ENABLE)
+    console_printf("[dump.c] dump_ble_encryption_block(ecb=%p)\n", ecb);
+#endif
+    console_printf("[v] ecb->key=0x");
+    for (int i = 0; i < BLE_ENC_BLOCK_SIZE; i++) {
+        console_printf("%02x", ecb->key[i]);
+    }
+    console_printf("\n");
+    console_printf("[v] ecb->plain_text=0x");
+    for (int i = 0; i < BLE_ENC_BLOCK_SIZE; i++) {
+        console_printf("%02x", ecb->plain_text[i]);
+    }
+    console_printf("\n");
+    console_printf("[v] ecb->cipher_text=0x");
+    for (int i = 0; i < BLE_ENC_BLOCK_SIZE; i++) {
+        console_printf("%02x", ecb->cipher_text[i]);
+    }
+    console_printf("\n");
+#endif
+}
 void dump_ble_ll_conn_sm(struct ble_ll_conn_sm *connsm)
 {
 #if MYNEWT_VAL(SC_LOG_DUMP_ENABLE)
