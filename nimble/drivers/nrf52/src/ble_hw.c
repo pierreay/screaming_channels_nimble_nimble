@@ -37,7 +37,9 @@
 #include <hal/nrf_rng.h>
 #include "hal/nrf_ecb.h"
 #include "console/console.h"
+#include "screamingchannels/radio_test.h"
 #include "screamingchannels/dump.h"
+#include "screamingchannels/misc.h"
 
 /* Total number of resolving list elements */
 #define BLE_HW_RESOLV_LIST_SIZE     (16)
@@ -317,7 +319,7 @@ ble_hw_encrypt_block(struct ble_encryption_block *ecb)
     console_printf("[ble_hw.c] ble_hw_encrypt_block(ecb=%p)\n", ecb);
 #endif
 
-    #if MYNEWT_VAL(TINYCRYPT_INSTR_LOOP_ENABLE)
+#if MYNEWT_VAL(TINYCRYPT_INSTR_LOOP_ENABLE)
     for (int j = 0; j < MYNEWT_VAL(TINYCRYPT_INSTR_LOOP_NB); j++) {
 #if MYNEWT_VAL(SC_LOG_TRACE_ENABLE)
         console_printf("[v] TINYCRYPT_INSTR_LOOP_NB=%d\n", j);
@@ -327,9 +329,18 @@ ble_hw_encrypt_block(struct ble_encryption_block *ecb)
         // dump_tc_aes_key_sched_struct(&g_ctx);
         tc_aes_encrypt(ecb->cipher_text, ecb->plain_text, &g_ctx);
         dump_ble_encryption_block(ecb);
+        if (! IS_SC_TRAIN) {
+            break;
+        }
+        if (j == 1 && IS_SC_TRAIN) {
+            radio_tx_carrier(4, RADIO_MODE_MODE_Ble_1Mbit, 10);
+        }
 #if MYNEWT_VAL(TINYCRYPT_INSTR_LOOP_ENABLE)
     }
 #endif
+    if (IS_SC_TRAIN) {
+        radio_disable();
+    }
     return 0;
 }
 #endif
