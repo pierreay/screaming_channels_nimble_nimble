@@ -312,14 +312,17 @@ static struct tc_aes_key_sched_struct g_ctx;
 int
 ble_hw_encrypt_block(struct ble_encryption_block *ecb)
 {
-#if MYNEWT_VAL(CONSOLE_LOG)
-    console_printf("[nimble/drivers/nrf52/src/ble_hw.c] ble_hw_encrypt_block_tinycrypt()\n");
+#if MYNEWT_VAL(SC_LOG_TRACE_ENABLE)
+    console_printf("[ble_hw.c] ble_hw_encrypt_block(ecb=%p)\n", ecb);
 #endif
+    
 #if MYNEWT_VAL(TINYCRYPT_INSTR_LOOP_ENABLE)
     for (int j = 0; j < MYNEWT_VAL(TINYCRYPT_INSTR_LOOP_NB); j++) {
 #endif
+        
     tc_aes128_set_encrypt_key(&g_ctx, ecb->key);
     tc_aes_encrypt(ecb->cipher_text, ecb->plain_text, &g_ctx);
+    
 #if MYNEWT_VAL(TINYCRYPT_INSTR_LOOP_ENABLE)
     }
 #endif
