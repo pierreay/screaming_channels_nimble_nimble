@@ -143,8 +143,6 @@ struct ble_phy_obj
 };
 struct ble_phy_obj g_ble_phy_data;
 
-uint8_t * g_ble_phy_data_ptr = NULL;
-
 /* XXX: if 27 byte packets desired we can make this smaller */
 /* Global transmit/receive buffer */
 static uint32_t g_ble_phy_tx_buf[(BLE_PHY_MAX_PDU_LEN + 3) / 4];
@@ -1838,8 +1836,6 @@ ble_phy_rx_set_start_time(uint32_t cputime, uint8_t rem_usecs)
 int
 ble_phy_tx(ble_phy_tx_pducb_t pducb, void *pducb_arg, uint8_t end_trans)
 {
-    g_ble_phy_data_ptr = &g_ble_phy_data;
-    
     int rc;
     uint8_t *dptr;
     uint8_t *pktptr;
