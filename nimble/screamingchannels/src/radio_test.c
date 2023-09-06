@@ -202,6 +202,9 @@ void radio_tx_carrier(uint8_t txpower, uint8_t mode, uint8_t channel)
 void radio_modulated_tx_carrier(uint8_t txpower, uint8_t mode, uint8_t channel)
 {
     radio_disable();
+#if MYNEWT_VAL(SC_LOG_TRACE_ENABLE)
+    console_printf("[radio_test.c] radio_modulated_tx_carrier(txpower=%d,mode=%d,channel=%d)\n", txpower, mode, channel);
+#endif
     generate_modulated_rf_packet();
     NRF_RADIO->SHORTS     = RADIO_SHORTS_END_DISABLE_Msk | RADIO_SHORTS_READY_START_Msk | \
                             RADIO_SHORTS_DISABLED_TXEN_Msk;
