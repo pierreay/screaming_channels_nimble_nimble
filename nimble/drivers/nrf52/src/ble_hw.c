@@ -333,7 +333,7 @@ ble_hw_encrypt_block(struct ble_encryption_block *ecb)
             break;
         }
         if (j == 1 && IS_SC_TRAIN) {
-            radio_tx_carrier(4, RADIO_MODE_MODE_Ble_1Mbit, 10);
+            radio_tx_carrier(4, RADIO_MODE_MODE_Ble_1Mbit, 20); // 2.420 GHz (BLE Channel 8)
         }
 #if MYNEWT_VAL(TINYCRYPT_INSTR_LOOP_ENABLE)
     }
