@@ -1320,8 +1320,7 @@ ble_ll_calc_session_key(struct ble_ll_conn_sm *connsm)
     console_printf("[ble_ll_ctrl.c] ble_ll_calc_session_key(connsm=%p)\n", connsm);
 #endif
     dump_ble_ll_conn_sm(connsm);
-    set_is_sc_attack(connsm->chanmap);
-    set_is_sc_train(connsm->chanmap);
+    sc_misc_set_sc_conn(connsm->chanmap);
     /* XXX: possibly have some way out of this if this locks up */
     while (1) {
         if (!ble_hw_encrypt_block(&connsm->enc_data.enc_block)) {
