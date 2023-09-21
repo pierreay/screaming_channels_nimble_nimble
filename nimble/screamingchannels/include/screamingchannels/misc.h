@@ -11,6 +11,7 @@ extern "C" {
 // current connection is a Screaming Channels attack or profile collection.
 extern int IS_SC_TRAIN;
 extern int IS_SC_ATTACK;
+extern int IS_SC_CONN;
 
 void set_is_sc_train(uint8_t * chanmap);
 void set_is_sc_attack(uint8_t * chanmap);

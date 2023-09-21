@@ -1,5 +1,6 @@
 #include <inttypes.h>
 #include "screamingchannels/dump.h"
+#include "screamingchannels/misc.h"
 #include "console/console.h"
 
 // Reference in ble_ll_conn.h
@@ -125,5 +126,17 @@ char * get_ble_ll_conn_enc_state(uint8_t enc_state)
 {
 #if MYNEWT_VAL(SC_LOG_DUMP_ENABLE)
     return ENC_STATES[enc_state - 1];
+#endif
+}
+
+void dump_sc_state()
+{
+#if MYNEWT_VAL(SC_LOG_DUMP_ENABLE)
+#if MYNEWT_VAL(SC_LOG_TRACE_ENABLE)
+    console_printf("[dump.c] dump_sc_state()\n");
+#endif
+    console_printf("[v] IS_SC_TRAIN=%d\n", IS_SC_TRAIN);
+    console_printf("[v] IS_SC_ATTACK=%d\n", IS_SC_ATTACK);
+    console_printf("[v] IS_SC_CONN=%d\n", IS_SC_CONN);
 #endif
 }

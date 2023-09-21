@@ -6,6 +6,7 @@
 
 int IS_SC_TRAIN  = 0;
 int IS_SC_ATTACK = 0;
+int IS_SC_CONN = 0;
 
 void set_is_sc_train(uint8_t * chanmap)
 {
