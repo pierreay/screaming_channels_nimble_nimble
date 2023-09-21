@@ -329,13 +329,16 @@ ble_hw_encrypt_block(struct ble_encryption_block *ecb)
         // dump_tc_aes_key_sched_struct(&g_ctx);
         tc_aes_encrypt(ecb->cipher_text, ecb->plain_text, &g_ctx);
         dump_ble_encryption_block(ecb);
-        if (! IS_SC_TRAIN) {
-            break;
-        }
-        if (j == 1 && IS_SC_TRAIN) {
+        dump_sc_state();
+        if (j == 1 && IS_SC_CONN == 1 && IS_SC_TRAIN == 1) {
             radio_tx_carrier(4, RADIO_MODE_MODE_Ble_1Mbit, 20); // 2.420 GHz (BLE Channel 8)
+            continue;
+        }
+        else if (j != 1 && IS_SC_CONN == 1 && IS_SC_TRAIN == 1) {
+            continue;
         }
 #if MYNEWT_VAL(TINYCRYPT_INSTR_LOOP_ENABLE)
+        break; // Break from instr_loop_nb by default if no continue was executed.
     }
 #endif
     if (IS_SC_TRAIN) {
