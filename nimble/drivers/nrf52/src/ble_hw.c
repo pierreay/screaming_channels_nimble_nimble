@@ -319,31 +319,32 @@ ble_hw_encrypt_block(struct ble_encryption_block *ecb)
     console_printf("[ble_hw.c] ble_hw_encrypt_block(ecb=%p)\n", ecb);
 #endif
 
-#if MYNEWT_VAL(TINYCRYPT_INSTR_LOOP_ENABLE)
-    for (int j = 0; j < MYNEWT_VAL(TINYCRYPT_INSTR_LOOP_NB); j++) {
+#if MYNEWT_VAL(SC_TINYCRYPT_INSTR_LOOP_ENABLE)
+    for (int j = 0; j < MYNEWT_VAL(SC_TINYCRYPT_INSTR_LOOP_NB); j++) {
 #if MYNEWT_VAL(SC_LOG_TRACE_ENABLE)
-        console_printf("[v] TINYCRYPT_INSTR_LOOP_NB=%d\n", j);
+        console_printf("[v] SC_TINYCRYPT_INSTR_LOOP_NB=%d\n", j);
 #endif
 #endif
         tc_aes128_set_encrypt_key(&g_ctx, ecb->key);
-        // dump_tc_aes_key_sched_struct(&g_ctx);
+#if MYNEWT_VAL(SC_LOG_DUMP_ENABLE)
+        dump_tc_aes_key_sched_struct(&g_ctx);
+#endif
         tc_aes_encrypt(ecb->cipher_text, ecb->plain_text, &g_ctx);
+#if MYNEWT_VAL(SC_LOG_DUMP_ENABLE)
         dump_ble_encryption_block(ecb);
         dump_sc_state();
-        if (j == 1 && IS_SC_CONN == 1 && IS_SC_TRAIN == 1) {
+#endif
+#if MYNEWT_VAL(SC_TINYCRYPT_RADIO_ENABLE)
+        if (j == 1) {
             radio_tx_carrier(4, RADIO_MODE_MODE_Ble_1Mbit, 20); // 2.420 GHz (BLE Channel 8)
-            continue;
         }
-        else if (j != 1 && IS_SC_CONN == 1 && IS_SC_TRAIN == 1) {
-            continue;
-        }
-#if MYNEWT_VAL(TINYCRYPT_INSTR_LOOP_ENABLE)
-        break; // Break from instr_loop_nb by default if no continue was executed.
+#endif
+#if MYNEWT_VAL(SC_TINYCRYPT_INSTR_LOOP_ENABLE)
     }
 #endif
-    if (IS_SC_TRAIN) {
-        radio_disable();
-    }
+#if MYNEWT_VAL(SC_TINYCRYPT_RADIO_ENABLE)
+    radio_disable();
+#endif
     return 0;
 }
 #endif

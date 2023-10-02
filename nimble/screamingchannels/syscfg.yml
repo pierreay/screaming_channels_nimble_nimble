@@ -13,3 +13,9 @@ syscfg.defs:
         description: >
             Screaming Channels structure dumping logging (0 = disable ; 1 = enable).
         value: 0
+
+    SC_TINYCRYPT_RADIO_ENABLE:
+        description: >
+            Whether to enable the radio after the first iteration of a
+            TinyCrypt encryption (0 = disable ; 1 = enable).
+        value: 0
