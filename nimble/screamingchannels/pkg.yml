@@ -14,3 +14,4 @@ pkg.deps:
     - "@apache-mynewt-core/crypto/tinycrypt"
     - nimble
     - nimble/controller
+    - nimble/host
