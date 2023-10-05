@@ -1635,18 +1635,6 @@ ble_ll_ctrl_rx_enc_req(struct ble_ll_conn_sm *connsm, uint8_t *dptr,
     // Generate the SKD_S (skds) on the fly from random data and put it inside
     // the first part of the plaintext (which is the final SKD).
     ble_ll_rand_data_get(connsm->enc_data.enc_block.plain_text, 8);
-#if MYNEWT_VAL(BLE_LL_INSTR_SKDS_FIXED_ENABLE)
-    // TODO: To remove?
-    // Temporary fix SKD_S value.
-    connsm->enc_data.enc_block.plain_text[0] = 0xde;
-    connsm->enc_data.enc_block.plain_text[1] = 0xad;
-    connsm->enc_data.enc_block.plain_text[2] = 0xbe;
-    connsm->enc_data.enc_block.plain_text[3] = 0xef;
-    connsm->enc_data.enc_block.plain_text[4] = 0xde;
-    connsm->enc_data.enc_block.plain_text[5] = 0xad;
-    connsm->enc_data.enc_block.plain_text[6] = 0xbe;
-    connsm->enc_data.enc_block.plain_text[7] = 0xef;
-#endif
     swap_buf(rspdata, connsm->enc_data.enc_block.plain_text, 8);
 #if MYNEWT_VAL(SC_LOG_DUMP_ENABLE)
     console_printf("[v] SKD_S:");
