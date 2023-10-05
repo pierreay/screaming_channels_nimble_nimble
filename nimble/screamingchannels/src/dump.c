@@ -152,3 +152,10 @@ void dump_sc_input()
     console_printf("[v] SC_INPUT_SUB_OK=%d\n", SC_INPUT_SUB_OK);
 #endif
 }
+
+void dump_hex_uint8(uint8_t * hex, int size) {
+    for (int i = 0; i < size; i++) {
+        console_printf("%02x", hex[i]);
+    }
+    console_printf("\n");
+}

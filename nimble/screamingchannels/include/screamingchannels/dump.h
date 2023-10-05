@@ -26,6 +26,9 @@ void dump_sc_state();
 */
 void dump_sc_input();
 
+/** Dump hexadecimal number from uint8_t array. */
+void dump_hex_uint8(uint8_t * hex, int size);
+
 #ifdef __cplusplus
 }
 #endif
