@@ -150,12 +150,16 @@ void dump_sc_input()
 #endif
     console_printf("[v] SC_INPUT_MODE=%s\n", sc_input_get_input_mode_str());
     console_printf("[v] SC_INPUT_SUB_OK=%d\n", SC_INPUT_SUB_OK);
+    console_printf("[v] SC_INPUT_KS=");
+    dump_hex_uint8(SC_INPUT_KS, INPUT_SIZE);
+    console_printf("[v] SC_INPUT_PT=");
+    dump_hex_uint8(SC_INPUT_PT, INPUT_SIZE);
 #endif
 }
 
 void dump_hex_uint8(uint8_t * hex, int size) {
-    for (int i = 0; i < size; i++) {
+    console_printf("0x");
+    for (int i = 0; i < size; i++)
         console_printf("%02x", hex[i]);
-    }
     console_printf("\n");
 }
