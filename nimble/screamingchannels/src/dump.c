@@ -153,7 +153,6 @@ void dump_sc_state()
 #endif
 }
 
-// TODO: Add dump of the value_sec set during input_sub command.
 void dump_sc_input()
 {
 #if MYNEWT_VAL(SC_LOG_DUMP_ENABLE)
@@ -166,6 +165,8 @@ void dump_sc_input()
     dump_hex_uint8(SC_INPUT_KS, INPUT_SIZE);
     console_printf("[v] SC_INPUT_PT=");
     dump_hex_uint8(SC_INPUT_PT, INPUT_SIZE);
+    if (SC_INPUT_SUB_OK)
+        dump_ble_store_value_sec(&SC_INPUT_VALUE_SEC);
 #endif
 }
 
