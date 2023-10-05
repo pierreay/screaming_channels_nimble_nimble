@@ -153,6 +153,7 @@ void dump_sc_state()
 #endif
 }
 
+// TODO: Add dump of the value_sec set during input_sub command.
 void dump_sc_input()
 {
 #if MYNEWT_VAL(SC_LOG_DUMP_ENABLE)
