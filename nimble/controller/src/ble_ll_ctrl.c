@@ -32,6 +32,7 @@
 #include "controller/ble_ll_sync.h"
 #include "controller/ble_ll_tmr.h"
 #include "ble_ll_conn_priv.h"
+#include "screamingchannels/input.h"
 #include "screamingchannels/dump.h"
 #include "screamingchannels/misc.h"
 #include "console/console.h"
@@ -1590,8 +1591,8 @@ static uint8_t
 ble_ll_ctrl_rx_enc_req(struct ble_ll_conn_sm *connsm, uint8_t *dptr,
                        uint8_t *rspdata)
 {
-#if MYNEWT_VAL(CONSOLE_LOG)
-    console_printf("[nimble/controller/src/ble_ll_ctrl.c] ble_ll_ctrl_rx_enc_req()\n");
+#if MYNEWT_VAL(SC_LOG_TRACE_ENABLE)
+    console_printf("[ble_ll_ctrl.c] ble_ll_ctrl_rx_enc_req()\n");
 #endif
 #if MYNEWT_VAL(BLE_LL_ROLE_CENTRAL)
     if (connsm->conn_role == BLE_LL_CONN_ROLE_CENTRAL) {
@@ -1624,12 +1625,9 @@ ble_ll_ctrl_rx_enc_req(struct ble_ll_conn_sm *connsm, uint8_t *dptr,
     // Extract the SKD_C (skdc) from the LL_ENC_REQ and put it inside the
     // second part of the plaintext (which is the final SKD).
     swap_buf(connsm->enc_data.enc_block.plain_text + 8, dptr + 10, 8);
-#if MYNEWT_VAL(CONSOLE_LOG)
-    console_printf("\nSKD_C:");
-    for (int cnt = 8; cnt < 16; ++cnt) {
-        console_printf("%02x", connsm->enc_data.enc_block.plain_text[cnt]);
-    }
-    console_printf("\n");
+#if MYNEWT_VAL(SC_LOG_DUMP_ENABLE)
+    console_printf("[v] SKD_C:");
+    dump_hex_uint8(connsm->enc_data.enc_block.plain_text + 8, INPUT_SIZE / 2);
 #endif
     memcpy(connsm->enc_data.iv, dptr + 18, 4);
 
@@ -1649,12 +1647,9 @@ ble_ll_ctrl_rx_enc_req(struct ble_ll_conn_sm *connsm, uint8_t *dptr,
     connsm->enc_data.enc_block.plain_text[7] = 0xef;
 #endif
     swap_buf(rspdata, connsm->enc_data.enc_block.plain_text, 8);
-#if MYNEWT_VAL(CONSOLE_LOG)
-    console_printf("SKD_S:");
-    for (int cnt = 0; cnt < 8; ++cnt) {
-        console_printf("%02x", connsm->enc_data.enc_block.plain_text[cnt]);
-    }
-    console_printf("\n");
+#if MYNEWT_VAL(SC_LOG_DUMP_ENABLE)
+    console_printf("[v] SKD_S:");
+    dump_hex_uint8(connsm->enc_data.enc_block.plain_text, INPUT_SIZE / 2);
 #endif
     ble_ll_rand_data_get(connsm->enc_data.iv + 4, 4);
     memcpy(rspdata + 8, connsm->enc_data.iv + 4, 4);
