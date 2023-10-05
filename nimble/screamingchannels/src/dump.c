@@ -68,8 +68,8 @@ void dump_ble_ll_conn_sm(struct ble_ll_conn_sm *connsm)
     console_printf("[v] channel_id=%"      PRIu16 "\n", connsm->channel_id);
     console_printf("[v] data_chan_index=%" PRIu8  "\n", connsm->data_chan_index);
     console_printf("[v] anchor_point=%"    PRIu32 "\n", connsm->anchor_point);
-    console_printf("[v] peer_addr=");
-    dump_ble_addr(connsm->peer_addr);
+    console_printf("[v] peer_addr=\n");
+    dump_addr(connsm->peer_addr);
     console_printf("\n");
     console_printf("[v] chanmap=");
     dump_ble_chanmap(connsm->chanmap);
@@ -109,7 +109,16 @@ void dump_ble_ll_conn_enc_data(struct ble_ll_conn_enc_data *enc_data)
 #endif
 }
 
-void dump_ble_addr(uint8_t * addr)
+void dump_ble_addr(ble_addr_t addr)
+{
+#if MYNEWT_VAL(SC_LOG_DUMP_ENABLE)
+    console_printf("addr.type=%" PRIu8 ";", addr.type);
+    console_printf("addr.val=");
+    dump_addr(addr.val);
+#endif
+}
+
+void dump_addr(uint8_t * addr)
 {
 #if MYNEWT_VAL(SC_LOG_DUMP_ENABLE)
     // Reference in ble.h
@@ -171,13 +180,13 @@ void dump_ble_store_value_sec(struct ble_store_value_sec *value_sec) {
 #if MYNEWT_VAL(SC_LOG_TRACE_ENABLE)
     console_printf("[dump.c] dump_ble_store_value_sec(value_sec=%p)\n", value_sec);
 #endif
+    console_printf("[v] value_sec->ltk=");
+    dump_hex_uint8(value_sec->ltk, INPUT_SIZE);
     console_printf("[v] value_sec->ediv=%#hx\n", value_sec->ediv);
     console_printf("[v] value_sec->rand_num=%#llx\n", value_sec->rand_num);
     console_printf("[v] value_sec->peer_addr=");
-    dump_ble_addr(value_sec->peer_addr.val);
+    dump_ble_addr(value_sec->peer_addr);
     console_printf("\n");
-    console_printf("[v] value_sec->ltk=");
-    dump_hex_uint8(value_sec->ltk, INPUT_SIZE);
     return;
 #endif
 }
