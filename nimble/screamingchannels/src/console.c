@@ -11,6 +11,11 @@
 
 #define INPUT_BASE_OFFSET 2 // Length of k: and p: used in commands.
 
+void set_ble_addr(char * src, uint8_t * dest) {
+    sscanf(src, "%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx",
+           &dest[5], &dest[4], &dest[3], &dest[2], &dest[1], &dest[0]);
+}
+
 /** String hexadecimal to char decimal conversion. */
 char str_hex_to_char_dec(char * str) {
     char hex_str[3];
@@ -60,16 +65,13 @@ screamingchannels_process_input(struct os_event *ev)
     }
     else if (!strcmp(line, "input_sub")) {
         // Register key into the Nimble security database.
-        // TODO: Continue to properly set value_sec and peer_addr before to move on AES.
+        // PROG: Continue to properly set value_sec and peer_addr before to move on AES.
         struct ble_store_value_sec value_sec;
+        // DONE Set peer_addr.
         ble_addr_t peer_addr;
         peer_addr.type = 0;
-        peer_addr.val[5] = 0x00;
-        peer_addr.val[4] = 0x19;
-        peer_addr.val[3] = 0x0e;
-        peer_addr.val[2] = 0x19;
-        peer_addr.val[1] = 0x79;
-        peer_addr.val[0] = 0xd8;
+        set_ble_addr("00:19:0e:19:79:d8", peer_addr.val);
+        // TODO: Set value_sec.
         value_sec.peer_addr = peer_addr;
         value_sec.key_size = 16;
         value_sec.ediv = 0xdead;
