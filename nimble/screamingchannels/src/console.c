@@ -65,23 +65,21 @@ screamingchannels_process_input(struct os_event *ev)
     }
     else if (!strcmp(line, "input_sub")) {
         // Register key into the Nimble security database.
-        // PROG: Continue to properly set value_sec and peer_addr before to move on AES.
-        struct ble_store_value_sec value_sec;
-        // DONE Set peer_addr.
-        ble_addr_t peer_addr;
-        peer_addr.type = 0;
-        set_ble_addr("00:19:0e:19:79:d8", peer_addr.val);
-        // TODO: Set value_sec.
-        value_sec.peer_addr = peer_addr;
-        value_sec.key_size = 16;
-        value_sec.ediv = 0xdead;
-        value_sec.rand_num = 0xdeadbeefdeadbeef;
-        value_sec.ltk[0] = 0xde;
-        value_sec.ltk[1] = 0xad;
-        value_sec.ltk[2] = 0xbe;
-        value_sec.ltk[3] = 0xef;
-        value_sec.ltk_present = 1;
-        int rc = ble_store_write_our_sec(&value_sec);
+        // PROG: Continue to properly set SC_INPUT_VALUE_SEC and SC_INPUT_PEER_ADDR before to move on AES.
+        // DONE Set SC_INPUT_PEER_ADDR.
+        SC_INPUT_PEER_ADDR.type = 0;
+        set_ble_addr("00:19:0e:19:79:d8", SC_INPUT_PEER_ADDR.val);
+        // TODO: Set SC_INPUT_VALUE_SEC.
+        SC_INPUT_VALUE_SEC.peer_addr = SC_INPUT_PEER_ADDR;
+        SC_INPUT_VALUE_SEC.key_size = 16;
+        SC_INPUT_VALUE_SEC.ediv = 0xdead;
+        SC_INPUT_VALUE_SEC.rand_num = 0xdeadbeefdeadbeef;
+        SC_INPUT_VALUE_SEC.ltk[0] = 0xde;
+        SC_INPUT_VALUE_SEC.ltk[1] = 0xad;
+        SC_INPUT_VALUE_SEC.ltk[2] = 0xbe;
+        SC_INPUT_VALUE_SEC.ltk[3] = 0xef;
+        SC_INPUT_VALUE_SEC.ltk_present = 1;
+        int rc = ble_store_write_our_sec(&SC_INPUT_VALUE_SEC);
         if (rc == 0) {
             SC_INPUT_MODE = SC_INPUT_MODE_SUB;
             SC_INPUT_SUB_OK = 1;

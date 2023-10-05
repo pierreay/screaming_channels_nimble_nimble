@@ -2,6 +2,8 @@
 #define INPUT_H
 
 #include <stdint.h>
+#include "nimble/ble.h"
+#include "host/ble_store.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -30,6 +32,10 @@ extern int SC_INPUT_SUB_OK;
 */
 extern uint8_t SC_INPUT_KS[INPUT_SIZE]; // Key used for the AES (LTK).
 extern uint8_t SC_INPUT_PT[INPUT_SIZE]; // Plaintext used for the AES (SKD).
+
+/** Security material with its address that will be added into security database. */
+extern struct ble_store_value_sec SC_INPUT_VALUE_SEC;
+extern ble_addr_t SC_INPUT_PEER_ADDR;
 
 // Return a string indicating what is the AES input generation method.
 char * sc_input_get_input_mode_str();
