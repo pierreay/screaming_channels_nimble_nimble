@@ -20,11 +20,12 @@ void dump_tc_aes_key_sched_struct(struct tc_aes_key_sched_struct *g_ctx)
 #if MYNEWT_VAL(SC_LOG_TRACE_ENABLE)
     console_printf("[dump.c] dump_tc_aes_key_sched_struct(g_ctx=%p)\n", g_ctx);
 #endif
-    console_printf("[v] g_ctx->words=");
     for (int i = 0; i < Nb*(Nr+1); i++) {
-        console_printf("0x%08x", g_ctx->words[i]);
+        console_printf("[v] g_ctx->words[%d]=0x%08x\n", i, g_ctx->words[i]);
+        if (i == 3)
+            break; // Don't break pairing because of timing.
     }
-    console_printf("\n");
+    console_printf("[!] skip remaining words\n");
 #endif
 }
 
