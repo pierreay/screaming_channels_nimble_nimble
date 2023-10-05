@@ -22,6 +22,7 @@
 #include "host/ble_store.h"
 #include "ble_hs_priv.h"
 #include <console/console.h>
+#include "screamingchannels/dump.h"
 
 int
 ble_store_read(int obj_type, const union ble_store_key *key,
@@ -171,18 +172,15 @@ ble_store_persist_sec(int obj_type,
     return rc;
 }
 
+/** SC: Write the key material in the security database during pairing. */
 int
 ble_store_write_our_sec(struct ble_store_value_sec *value_sec)
 {
-#if MYNEWT_VAL(CONSOLE_LOG)
-    console_printf("[nimble/host/ble_store.c] ble_store_write_our_sec()\n");
-    console_printf("ediv=%#hx\n", value_sec->ediv);
-    console_printf("rand=%#llx\n", value_sec->rand_num);
-    console_printf("ltk=0x%02hx%02hx%02hx%02hx%02hx%02hx%02hx%02hx%02hx%02hx%02hx%02hx%02hx%02hx%02hx%02hx\n",
-                   value_sec->ltk[0], value_sec->ltk[1], value_sec->ltk[2], value_sec->ltk[3],
-                   value_sec->ltk[4], value_sec->ltk[5], value_sec->ltk[6], value_sec->ltk[7],
-                   value_sec->ltk[8], value_sec->ltk[9], value_sec->ltk[10], value_sec->ltk[11],
-                   value_sec->ltk[12], value_sec->ltk[13], value_sec->ltk[14], value_sec->ltk[15]);
+#if MYNEWT_VAL(SC_LOG_TRACE_ENABLE)
+    console_printf("[ble_store.c] ble_store_write_our_sec()\n");
+#endif
+#if MYNEWT_VAL(SC_LOG_DUMP_ENABLE)
+    dump_ble_store_value_sec(value_sec);
 #endif
     int rc;
 

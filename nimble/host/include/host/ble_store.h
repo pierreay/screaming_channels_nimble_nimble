@@ -69,6 +69,7 @@ struct ble_store_key_sec {
  * following store object types:
  *     o BLE_STORE_OBJ_TYPE_OUR_SEC
  *     o BLE_STORE_OBJ_TYPE_PEER_SEC
+ * SC: Structure contained key material stored during pairing.
  */
 struct ble_store_value_sec {
     ble_addr_t peer_addr;
@@ -76,6 +77,14 @@ struct ble_store_value_sec {
     uint8_t key_size;
     uint16_t ediv;
     uint64_t rand_num;
+    /** SC: Note about the endianness of LTK storage.
+     *
+     * The ble_store_value_sec structure store the LTK in the reverse
+     * byte-order compared to the order used by the LL and the AES, because
+     * this is the byte order used in the BLE packets.
+     *
+     * See swap_buf() and swap_in_place() functions in 'endian.c'.
+     */
     uint8_t ltk[16];
     uint8_t ltk_present:1;
 
