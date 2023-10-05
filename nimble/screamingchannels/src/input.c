@@ -16,4 +16,5 @@ char * sc_input_get_input_mode_str()
     else if (SC_INPUT_MODE == SC_INPUT_MODE_SUB) {
         return "SC_INPUT_MODE_SUB";
     }
+    return "";
 }
