@@ -8,6 +8,7 @@ extern "C" {
 #endif
 
 #include "tinycrypt/aes.h"
+#include "host/ble_store.h"
 #include "controller/ble_ll_conn.h"
 
 void dump_tc_aes_key_sched_struct(struct tc_aes_key_sched_struct *g_ctx);
@@ -28,6 +29,9 @@ void dump_sc_input();
 
 /** Dump hexadecimal number from uint8_t array into console. */
 void dump_hex_uint8(uint8_t * hex, int size);
+
+/** Dump the values contained inside struct ble_store_value_sec into console. */
+void dump_ble_store_value_sec(struct ble_store_value_sec *value_sec);
 
 #ifdef __cplusplus
 }

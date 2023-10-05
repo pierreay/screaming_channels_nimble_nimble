@@ -1,4 +1,5 @@
 #include <inttypes.h>
+#include "host/ble_store.h"
 #include "screamingchannels/dump.h"
 #include "screamingchannels/misc.h"
 #include "screamingchannels/input.h"
@@ -163,4 +164,20 @@ void dump_hex_uint8(uint8_t * hex, int size) {
     for (int i = 0; i < size; i++)
         console_printf("%02x", hex[i]);
     console_printf("\n");
+}
+
+void dump_ble_store_value_sec(struct ble_store_value_sec *value_sec) {
+#if MYNEWT_VAL(SC_LOG_DUMP_ENABLE)
+#if MYNEWT_VAL(SC_LOG_TRACE_ENABLE)
+    console_printf("[dump.c] dump_ble_store_value_sec(value_sec=%p)\n", value_sec);
+#endif
+    console_printf("[v] value_sec->ediv=%#hx\n", value_sec->ediv);
+    console_printf("[v] value_sec->rand_num=%#llx\n", value_sec->rand_num);
+    console_printf("[v] value_sec->peer_addr=");
+    dump_ble_addr(value_sec->peer_addr.val);
+    console_printf("\n");
+    console_printf("[v] value_sec->ltk=");
+    dump_hex_uint8(value_sec->ltk, INPUT_SIZE);
+    return;
+#endif
 }
