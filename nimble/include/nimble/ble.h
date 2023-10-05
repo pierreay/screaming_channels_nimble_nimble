@@ -292,6 +292,7 @@ enum ble_error_codes
 
 typedef struct {
     uint8_t type;
+    // SC: Address is stored in little-endian.
     uint8_t val[6];
 } ble_addr_t;
 
