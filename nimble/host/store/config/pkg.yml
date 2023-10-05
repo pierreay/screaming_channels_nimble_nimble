@@ -29,6 +29,7 @@ pkg.keywords:
 
 pkg.deps:
     - "@apache-mynewt-core/encoding/base64"
+    - "@apache-mynewt-core/sys/console/full"
     - nimble/host
 
 pkg.deps.BLE_STORE_CONFIG_PERSIST:
@@ -36,3 +37,6 @@ pkg.deps.BLE_STORE_CONFIG_PERSIST:
 
 pkg.init:
     ble_store_config_init: 'MYNEWT_VAL(BLE_STORE_SYSINIT_STAGE)'
+
+pkg.req_apis:
+    - console

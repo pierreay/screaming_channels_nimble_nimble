@@ -26,6 +26,7 @@
 #include "base64/base64.h"
 #include "store/config/ble_store_config.h"
 #include "ble_store_config_priv.h"
+#include <console/console.h>
 
 struct ble_store_value_sec
     ble_store_config_our_secs[MYNEWT_VAL(BLE_STORE_MAX_BONDS)];
@@ -88,6 +89,10 @@ ble_store_config_find_sec(const struct ble_store_key_sec *key_sec,
                           const struct ble_store_value_sec *value_secs,
                           int num_value_secs)
 {
+#if MYNEWT_VAL(SC_LOG_TRACE_ENABLE)
+    console_printf("[ble_store_config.c] ble_store_config_find_sec()\n");
+#endif
+    
     const struct ble_store_value_sec *cur;
     int skipped;
     int i;
@@ -449,6 +454,9 @@ ble_store_config_read(int obj_type, const union ble_store_key *key,
 
     // Find the code used for LTK (key) lookup in the security database.
     case BLE_STORE_OBJ_TYPE_OUR_SEC:
+#if MYNEWT_VAL(SC_LOG_TRACE_ENABLE)
+        console_printf("[ble_store_config.c] ble_store_config_read()/case BLE_STORE_OBJ_TYPE_OUR_SEC:\n");
+#endif
         BLE_HS_LOG(DEBUG, "looking up our sec; ");
         ble_store_config_print_key_sec(&key->sec);
         BLE_HS_LOG(DEBUG, "\n");
