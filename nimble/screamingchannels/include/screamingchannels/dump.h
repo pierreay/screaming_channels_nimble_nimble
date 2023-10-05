@@ -18,6 +18,9 @@ void dump_ble_addr(uint8_t * addr);
 void dump_ble_chanmap(uint8_t * chanmap);
 char * get_ble_ll_conn_enc_state(uint8_t enc_state);
 void dump_sc_state();
+// Dump information relative to the sc_input module (input generation mode and
+// values).
+void dump_sc_input();
 
 #ifdef __cplusplus
 }

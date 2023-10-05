@@ -1,6 +1,7 @@
 #include <inttypes.h>
 #include "screamingchannels/dump.h"
 #include "screamingchannels/misc.h"
+#include "screamingchannels/input.h"
 #include "console/console.h"
 
 // Reference in ble_ll_conn.h
@@ -138,5 +139,16 @@ void dump_sc_state()
     console_printf("[v] IS_SC_TRAIN=%d\n", IS_SC_TRAIN);
     console_printf("[v] IS_SC_ATTACK=%d\n", IS_SC_ATTACK);
     console_printf("[v] IS_SC_CONN=%d\n", IS_SC_CONN);
+#endif
+}
+
+void dump_sc_input()
+{
+#if MYNEWT_VAL(SC_LOG_DUMP_ENABLE)
+#if MYNEWT_VAL(SC_LOG_TRACE_ENABLE)
+    console_printf("[dump.c] dump_sc_input()\n");
+#endif
+    console_printf("[v] SC_INPUT_MODE=%s\n", sc_input_get_input_mode_str());
+    console_printf("[v] SC_INPUT_SUB_OK=%d\n", SC_INPUT_SUB_OK);
 #endif
 }
