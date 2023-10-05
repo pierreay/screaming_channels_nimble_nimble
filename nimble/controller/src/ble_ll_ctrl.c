@@ -1636,6 +1636,7 @@ ble_ll_ctrl_rx_enc_req(struct ble_ll_conn_sm *connsm, uint8_t *dptr,
     // the first part of the plaintext (which is the final SKD).
     ble_ll_rand_data_get(connsm->enc_data.enc_block.plain_text, 8);
 #if MYNEWT_VAL(BLE_LL_INSTR_SKDS_FIXED_ENABLE)
+    // TODO: To remove?
     // Temporary fix SKD_S value.
     connsm->enc_data.enc_block.plain_text[0] = 0xde;
     connsm->enc_data.enc_block.plain_text[1] = 0xad;
