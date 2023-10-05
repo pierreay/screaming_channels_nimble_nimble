@@ -32,6 +32,7 @@ pkg.deps:
     - "@apache-mynewt-core/sys/console/full"
     - nimble
     - nimble/transport
+    - nimble/screamingchannels
 
 pkg.deps.BLE_SM_LEGACY:
     - "@apache-mynewt-core/crypto/tinycrypt"

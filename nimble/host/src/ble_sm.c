@@ -1302,8 +1302,8 @@ static void
 ble_sm_ltk_restore_exec(struct ble_sm_proc *proc, struct ble_sm_result *res,
                         void *arg)
 {
-#if MYNEWT_VAL(CONSOLE_LOG)
-    console_printf("[nimble/host/src/ble_sm.c] ble_sm_ltk_restore_exec()\n");
+#if MYNEWT_VAL(SC_LOG_TRACE_ENABLE)
+    console_printf("[ble_sm.c] ble_sm_ltk_restore_exec()\n");
 #endif
     struct ble_store_value_sec *value_sec;
 
