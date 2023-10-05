@@ -17,7 +17,9 @@ extern "C" {
 // method. Should be set to SC_INPUT_MODE_GEN or SC_INPUT_MODE_SUB.
 extern int SC_INPUT_MODE;
 // Used by other modules to set/get the current state of AES inputs
-// submission. Should be set to a boolean. If set to 1, then 
+// submission. Should be set to a boolean. If set to 1, this means that the
+// current key (SC_INPUT_KS) and current plaintext (SC_INPUT_PT) have been
+// registered inside the Nimble security database.
 extern int SC_INPUT_SUB_OK;
 
 /**

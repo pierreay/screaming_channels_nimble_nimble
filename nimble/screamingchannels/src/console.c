@@ -58,13 +58,16 @@ screamingchannels_process_input(struct os_event *ev)
     }
     else if (!strcmp(line, "input_sub")) {
         SC_INPUT_MODE = SC_INPUT_MODE_SUB;
+        // TODO: Register KS and PT into Nimble security DB.
         SC_INPUT_SUB_OK = 1;
     }
     else if (line[0] == 'k' && line[1] == ':') {
         str_hex_to_uint8_dec(line + INPUT_BASE_OFFSET, SC_INPUT_KS, INPUT_SIZE);
+        SC_INPUT_SUB_OK = 0;
     }
     else if (line[0] == 'p' && line[1] == ':') {
         str_hex_to_uint8_dec(line + INPUT_BASE_OFFSET, SC_INPUT_PT, INPUT_SIZE);
+        SC_INPUT_SUB_OK = 0;
     }
     else if (!strcmp(line, "input_gen")) {
         SC_INPUT_MODE = SC_INPUT_MODE_GEN;
