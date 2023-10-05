@@ -322,17 +322,17 @@ ble_hw_encrypt_block(struct ble_encryption_block *ecb)
 #if MYNEWT_VAL(SC_TINYCRYPT_INSTR_LOOP_ENABLE)
     for (int j = 0; j < MYNEWT_VAL(SC_TINYCRYPT_INSTR_LOOP_NB); j++) {
 #if MYNEWT_VAL(SC_LOG_TRACE_ENABLE)
-        console_printf("[v] SC_TINYCRYPT_INSTR_LOOP_NB=%d\n", j);
+        // console_printf("[v] SC_TINYCRYPT_INSTR_LOOP_NB=%d\n", j);
 #endif
 #endif
         tc_aes128_set_encrypt_key(&g_ctx, ecb->key);
 #if MYNEWT_VAL(SC_LOG_DUMP_ENABLE)
-        dump_tc_aes_key_sched_struct(&g_ctx);
+        // dump_tc_aes_key_sched_struct(&g_ctx);
 #endif
         tc_aes_encrypt(ecb->cipher_text, ecb->plain_text, &g_ctx);
 #if MYNEWT_VAL(SC_LOG_DUMP_ENABLE)
-        dump_ble_encryption_block(ecb);
-        dump_sc_state();
+        // dump_ble_encryption_block(ecb);
+        // dump_sc_state();
 #endif
 #if MYNEWT_VAL(SC_TINYCRYPT_RADIO_ENABLE)
         if (j == 1) {
