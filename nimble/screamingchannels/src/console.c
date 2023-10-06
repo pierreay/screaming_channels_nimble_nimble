@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include <string.h>
 #include <stdlib.h>
+#include "os/endian.h"
 #include "screamingchannels/console.h"
 #include "screamingchannels/misc.h"
 #include "screamingchannels/input.h"
@@ -9,8 +10,10 @@
 #include "nimble/ble.h"
 #include "host/ble_store.h"
 
-#define INPUT_BASE_OFFSET 2 // Length of k: and p: used in commands.
+// Length of k: and p: used in commands.
+#define INPUT_BASE_OFFSET 2
 
+/** Set DEST byte array to the address of length 6 represented by the SRC string. */
 void set_ble_addr(char * src, uint8_t * dest) {
     sscanf(src, "%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx",
            &dest[5], &dest[4], &dest[3], &dest[2], &dest[1], &dest[0]);
@@ -66,18 +69,13 @@ screamingchannels_process_input(struct os_event *ev)
     else if (!strcmp(line, "input_sub")) {
         // Register key into the Nimble security database.
         // PROG: Continue to properly set SC_INPUT_VALUE_SEC and SC_INPUT_PEER_ADDR before to move on AES.
-        // DONE Set SC_INPUT_PEER_ADDR.
         SC_INPUT_PEER_ADDR.type = 0;
         set_ble_addr("00:19:0e:19:79:d8", SC_INPUT_PEER_ADDR.val);
-        // TODO: Set SC_INPUT_VALUE_SEC.
         SC_INPUT_VALUE_SEC.peer_addr = SC_INPUT_PEER_ADDR;
         SC_INPUT_VALUE_SEC.key_size = 16;
-        SC_INPUT_VALUE_SEC.ediv = 0xdead;
-        SC_INPUT_VALUE_SEC.rand_num = 0xdeadbeefdeadbeef;
-        SC_INPUT_VALUE_SEC.ltk[0] = 0xde;
-        SC_INPUT_VALUE_SEC.ltk[1] = 0xad;
-        SC_INPUT_VALUE_SEC.ltk[2] = 0xbe;
-        SC_INPUT_VALUE_SEC.ltk[3] = 0xef;
+        SC_INPUT_VALUE_SEC.ediv = 0xcafe;
+        SC_INPUT_VALUE_SEC.rand_num = 0xc0dec0dec0dec0de;
+        swap_buf(SC_INPUT_VALUE_SEC.ltk, SC_INPUT_KS, INPUT_SIZE);
         SC_INPUT_VALUE_SEC.ltk_present = 1;
         int rc = ble_store_write_our_sec(&SC_INPUT_VALUE_SEC);
         if (rc == 0) {

@@ -12,6 +12,7 @@ pkg.req_apis:
 pkg.deps:
     - "@apache-mynewt-core/sys/console/full"
     - "@apache-mynewt-core/crypto/tinycrypt"
+    - "@apache-mynewt-core/kernel/os"
     - nimble
     - nimble/controller
     - nimble/host
