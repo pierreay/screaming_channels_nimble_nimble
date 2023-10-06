@@ -73,8 +73,18 @@ screamingchannels_process_input(struct os_event *ev)
         set_ble_addr("00:19:0e:19:79:d8", SC_INPUT_PEER_ADDR.val);
         SC_INPUT_VALUE_SEC.peer_addr = SC_INPUT_PEER_ADDR;
         SC_INPUT_VALUE_SEC.key_size = 16;
-        SC_INPUT_VALUE_SEC.ediv = 0xcafe;
-        SC_INPUT_VALUE_SEC.rand_num = 0xc0dec0dec0dec0de;
+        // PROG: Set correctly those values to be able to do a connection
+        // without pairing. Inspect the failure error in the ble_store file? Is
+        // this an endianness issue? Current values on Reaper:
+        /* addr: 00:19:0E:19:79:D8
+         * ediv: 0x6d2e
+         * ltk:  0943bcf900dffe4e89da71840df77a9b
+         * rand: 8ec42b71e9092ba0
+         */
+        SC_INPUT_VALUE_SEC.ediv = 0x6d2e;
+        swap_in_place(SC_INPUT_VALUE_SEC.ediv, 2);
+        SC_INPUT_VALUE_SEC.rand_num = 0x8ec42b71e9092ba0;
+        swap_in_place(SC_INPUT_VALUE_SEC.rand_num, 8);
         swap_buf(SC_INPUT_VALUE_SEC.ltk, SC_INPUT_KS, INPUT_SIZE);
         SC_INPUT_VALUE_SEC.ltk_present = 1;
         int rc = ble_store_write_our_sec(&SC_INPUT_VALUE_SEC);
