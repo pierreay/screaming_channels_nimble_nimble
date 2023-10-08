@@ -12,10 +12,15 @@ extern "C" {
 #include "controller/ble_ll_conn.h"
 #include "nimble/ble.h"
 
+// Number must be read in memory address incrementation.
+#define SC_DUMP_BIG_ENDIAN 0
+// Number must be read in memory address decrementation.
+#define SC_DUMP_LITTLE_ENDIAN 1
+
 /* * General structures */
 
 /** Dump hexadecimal number from uint8_t array into console. */
-void dump_hex_uint8(uint8_t * hex, int size);
+void dump_hex_uint8(uint8_t * hex, int size, int endianness);
 
 /* * Screaming Channels structures */
 

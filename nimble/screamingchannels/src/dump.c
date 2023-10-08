@@ -162,18 +162,24 @@ void dump_sc_input()
     console_printf("[v] SC_INPUT_MODE=%s\n", sc_input_get_input_mode_str());
     console_printf("[v] SC_INPUT_SUB_OK=%d\n", SC_INPUT_SUB_OK);
     console_printf("[v] SC_INPUT_KS=");
-    dump_hex_uint8(SC_INPUT_KS, INPUT_SIZE);
+    dump_hex_uint8(SC_INPUT_KS, INPUT_SIZE, SC_DUMP_BIG_ENDIAN);
     console_printf("[v] SC_INPUT_PT=");
-    dump_hex_uint8(SC_INPUT_PT, INPUT_SIZE);
+    dump_hex_uint8(SC_INPUT_PT, INPUT_SIZE, SC_DUMP_BIG_ENDIAN);
     if (SC_INPUT_SUB_OK)
         dump_ble_store_value_sec(&SC_INPUT_VALUE_SEC);
 #endif
 }
 
-void dump_hex_uint8(uint8_t * hex, int size) {
+void dump_hex_uint8(uint8_t * hex, int size, int endianness) {
     console_printf("0x");
-    for (int i = 0; i < size; i++)
-        console_printf("%02x", hex[i]);
+    if (endianness == SC_DUMP_BIG_ENDIAN) {
+        for (int i = 0; i < size; i++)
+            console_printf("%02x", hex[i]);
+    }
+    else if (endianness == SC_DUMP_LITTLE_ENDIAN) {
+        for (int i = size - 1; i >= 0; i--)
+            console_printf("%02x", hex[i]);
+    }
     console_printf("\n");
 }
 
@@ -183,7 +189,8 @@ void dump_ble_store_value_sec(struct ble_store_value_sec *value_sec) {
     console_printf("[dump.c] dump_ble_store_value_sec(value_sec=%p)\n", value_sec);
 #endif
     console_printf("[v] value_sec->ltk=");
-    dump_hex_uint8(value_sec->ltk, INPUT_SIZE);
+    // TODO: Change this to LITTLE_ENDIAN ? To check using real pairing.
+    dump_hex_uint8(value_sec->ltk, INPUT_SIZE, SC_DUMP_BIG_ENDIAN);
     console_printf("[v] value_sec->ediv=%#hx\n", value_sec->ediv);
     console_printf("[v] value_sec->rand_num=%#llx\n", value_sec->rand_num);
     console_printf("[v] value_sec->peer_addr=");

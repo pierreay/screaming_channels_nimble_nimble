@@ -1627,7 +1627,7 @@ ble_ll_ctrl_rx_enc_req(struct ble_ll_conn_sm *connsm, uint8_t *dptr,
     swap_buf(connsm->enc_data.enc_block.plain_text + 8, dptr + 10, 8);
 #if MYNEWT_VAL(SC_LOG_DUMP_ENABLE)
     console_printf("[v] SKD_C:");
-    dump_hex_uint8(connsm->enc_data.enc_block.plain_text + 8, INPUT_SIZE / 2);
+    dump_hex_uint8(connsm->enc_data.enc_block.plain_text + 8, INPUT_SIZE / 2, SC_DUMP_BIG_ENDIAN);
 #endif
     memcpy(connsm->enc_data.iv, dptr + 18, 4);
 
@@ -1638,7 +1638,7 @@ ble_ll_ctrl_rx_enc_req(struct ble_ll_conn_sm *connsm, uint8_t *dptr,
     swap_buf(rspdata, connsm->enc_data.enc_block.plain_text, 8);
 #if MYNEWT_VAL(SC_LOG_DUMP_ENABLE)
     console_printf("[v] SKD_S:");
-    dump_hex_uint8(connsm->enc_data.enc_block.plain_text, INPUT_SIZE / 2);
+    dump_hex_uint8(connsm->enc_data.enc_block.plain_text, INPUT_SIZE / 2, SC_DUMP_BIG_ENDIAN);
 #endif
     ble_ll_rand_data_get(connsm->enc_data.iv + 4, 4);
     memcpy(rspdata + 8, connsm->enc_data.iv + 4, 4);
