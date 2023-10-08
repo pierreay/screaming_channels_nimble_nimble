@@ -20,7 +20,7 @@ extern "C" {
 /* * General structures */
 
 /** Dump hexadecimal number from uint8_t array into console. */
-void dump_hex_uint8(uint8_t * hex, int size, int endianness);
+void dump_hex_uint8(const uint8_t * hex, int size, int endianness);
 
 /* * Screaming Channels structures */
 
@@ -44,9 +44,9 @@ void dump_addr(uint8_t * addr);
 void dump_ble_chanmap(uint8_t * chanmap);
 char * get_ble_ll_conn_enc_state(uint8_t enc_state);
 /** Dump the values contained inside struct ble_store_value_sec into console. */
-void dump_ble_store_value_sec(struct ble_store_value_sec *value_sec);
+void dump_ble_store_value_sec(const struct ble_store_value_sec *value_sec);
 /** Dump the values contained inside struct ble_store_key_sec into console. */
-void dump_ble_store_key_sec(struct ble_store_key_sec *key_sec);
+void dump_ble_store_key_sec(const struct ble_store_key_sec *key_sec);
 
 #ifdef __cplusplus
 }

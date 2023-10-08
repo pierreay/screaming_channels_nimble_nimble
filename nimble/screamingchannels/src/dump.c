@@ -170,7 +170,7 @@ void dump_sc_input()
 #endif
 }
 
-void dump_hex_uint8(uint8_t * hex, int size, int endianness) {
+void dump_hex_uint8(const uint8_t * hex, int size, int endianness) {
     console_printf("0x");
     if (endianness == SC_DUMP_BIG_ENDIAN) {
         for (int i = 0; i < size; i++)
@@ -183,7 +183,7 @@ void dump_hex_uint8(uint8_t * hex, int size, int endianness) {
     console_printf("\n");
 }
 
-void dump_ble_store_value_sec(struct ble_store_value_sec *value_sec) {
+void dump_ble_store_value_sec(const struct ble_store_value_sec *value_sec) {
 #if MYNEWT_VAL(SC_LOG_DUMP_ENABLE)
 #if MYNEWT_VAL(SC_LOG_TRACE_ENABLE)
     console_printf("[dump.c] dump_ble_store_value_sec(value_sec=%p)\n", value_sec);
@@ -200,7 +200,7 @@ void dump_ble_store_value_sec(struct ble_store_value_sec *value_sec) {
 #endif
 }
 
-void dump_ble_store_key_sec(struct ble_store_key_sec *key_sec) {
+void dump_ble_store_key_sec(const struct ble_store_key_sec *key_sec) {
 #if MYNEWT_VAL(SC_LOG_DUMP_ENABLE)
 #if MYNEWT_VAL(SC_LOG_TRACE_ENABLE)
     console_printf("[dump.c] dump_ble_store_key_sec(key_sec=%p)\n", key_sec);
