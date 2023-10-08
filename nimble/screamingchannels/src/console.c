@@ -82,9 +82,9 @@ screamingchannels_process_input(struct os_event *ev)
          * rand: 8ec42b71e9092ba0
          */
         SC_INPUT_VALUE_SEC.ediv = 0x6d2e;
-        swap_in_place(SC_INPUT_VALUE_SEC.ediv, 2);
+        swap_in_place(&SC_INPUT_VALUE_SEC.ediv, 2);
         SC_INPUT_VALUE_SEC.rand_num = 0x8ec42b71e9092ba0;
-        swap_in_place(SC_INPUT_VALUE_SEC.rand_num, 8);
+        swap_in_place(&SC_INPUT_VALUE_SEC.rand_num, 8);
         swap_buf(SC_INPUT_VALUE_SEC.ltk, SC_INPUT_KS, INPUT_SIZE);
         SC_INPUT_VALUE_SEC.ltk_present = 1;
         int rc = ble_store_write_our_sec(&SC_INPUT_VALUE_SEC);
