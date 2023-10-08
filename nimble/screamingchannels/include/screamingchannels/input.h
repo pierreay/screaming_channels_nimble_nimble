@@ -40,6 +40,18 @@ extern ble_addr_t SC_INPUT_PEER_ADDR;
 // Return a string indicating what is the AES input generation method.
 char * sc_input_get_input_mode_str();
 
+/** Submit the custom Screaming Channels input to the Nimble subsystem.
+ *
+ * This implies to register a structure inside the Nimble security database
+ * with the LTK/RAND/EDIV set such that it allows to connect without
+ * pairing. Moreover, it exposes the key (i.e., the LTK) and the plaintext
+ * (i.e., the SKDs) to the AES submodule.
+ *
+ * The function return the code returned by the 'ble_store_write_our_sec()'
+ * function, i.e. 0 if there is not errors.
+ */
+int sc_input_sub();
+
 #ifdef __cplusplus
 }
 #endif

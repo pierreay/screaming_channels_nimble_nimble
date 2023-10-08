@@ -13,12 +13,6 @@
 // Length of k: and p: used in commands.
 #define INPUT_BASE_OFFSET 2
 
-/** Set DEST byte array to the address of length 6 represented by the SRC string. */
-void set_ble_addr(char * src, uint8_t * dest) {
-    sscanf(src, "%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx",
-           &dest[5], &dest[4], &dest[3], &dest[2], &dest[1], &dest[0]);
-}
-
 /** String hexadecimal to char decimal conversion. */
 char str_hex_to_char_dec(char * str) {
     char hex_str[3];
@@ -67,27 +61,7 @@ screamingchannels_process_input(struct os_event *ev)
         dump_sc_state();
     }
     else if (!strcmp(line, "input_sub")) {
-        // Register key into the Nimble security database.
-        // PROG: Continue to properly set SC_INPUT_VALUE_SEC and SC_INPUT_PEER_ADDR before to move on AES.
-        SC_INPUT_PEER_ADDR.type = 0;
-        set_ble_addr("00:19:0e:19:79:d8", SC_INPUT_PEER_ADDR.val);
-        SC_INPUT_VALUE_SEC.peer_addr = SC_INPUT_PEER_ADDR;
-        SC_INPUT_VALUE_SEC.key_size = 16;
-        // PROG: Set correctly those values to be able to do a connection
-        // without pairing. Inspect the failure error in the ble_store file? Is
-        // this an endianness issue? Current values on Reaper:
-        /* addr: 00:19:0E:19:79:D8
-         * ediv: 0x6d2e
-         * ltk:  0943bcf900dffe4e89da71840df77a9b
-         * rand: 8ec42b71e9092ba0
-         */
-        SC_INPUT_VALUE_SEC.ediv = 0x6d2e;
-        swap_in_place(&SC_INPUT_VALUE_SEC.ediv, 2);
-        SC_INPUT_VALUE_SEC.rand_num = 0x8ec42b71e9092ba0;
-        swap_in_place(&SC_INPUT_VALUE_SEC.rand_num, 8);
-        swap_buf(SC_INPUT_VALUE_SEC.ltk, SC_INPUT_KS, INPUT_SIZE);
-        SC_INPUT_VALUE_SEC.ltk_present = 1;
-        int rc = ble_store_write_our_sec(&SC_INPUT_VALUE_SEC);
+        int rc = sc_input_sub();
         if (rc == 0) {
             SC_INPUT_MODE = SC_INPUT_MODE_SUB;
             SC_INPUT_SUB_OK = 1;
