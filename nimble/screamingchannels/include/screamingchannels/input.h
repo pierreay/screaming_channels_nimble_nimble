@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include "nimble/ble.h"
 #include "host/ble_store.h"
+#include "controller/ble_ll_conn.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -44,13 +45,23 @@ char * sc_input_get_input_mode_str();
  *
  * This implies to register a structure inside the Nimble security database
  * with the LTK/RAND/EDIV set such that it allows to connect without
- * pairing. Moreover, it exposes the key (i.e., the LTK) and the plaintext
- * (i.e., the SKDs) to the AES submodule.
+ * pairing. Moreover, it exposes the key (i.e., the LTK) to the AES submodule
+ * since the latter searched it from the security database.
  *
  * The function return the code returned by the 'ble_store_write_our_sec()'
  * function, i.e. 0 if there is not errors.
  */
 int sc_input_sub();
+
+/** Set the custom Screaming Channels input to the current connection.
+ *
+ * Set the plaintext (i.e., the SKDs) that will be used by AES of the
+ * current connection to the Screaming CHannels given input.
+ *
+ * This function is intended to be called automatically by the Nimble
+ * controller if SC_INPUT_MODE is set to SC_INPUT_MODE_SUB and
+ * SC_INPUT_SUB_OK is set to 1. */
+void sc_input_set_to_conn_enc_data(struct ble_ll_conn_enc_data *enc_data);
 
 #ifdef __cplusplus
 }

@@ -42,9 +42,8 @@ int sc_input_sub() {
     set_ble_addr("00:19:0e:19:79:d8", SC_INPUT_PEER_ADDR.val);
     SC_INPUT_VALUE_SEC.peer_addr = SC_INPUT_PEER_ADDR;
     // Register the EDIV and RAND inside the security database structure.
-    // TODO: Those values comes from the last Mirage pairing. (I think we) Should we fix them to a magic number?
-    SC_INPUT_VALUE_SEC.ediv = 0xc7ce;
-    SC_INPUT_VALUE_SEC.rand_num = 0x3143d263963a16c5;
+    SC_INPUT_VALUE_SEC.ediv = 0xdead;
+    SC_INPUT_VALUE_SEC.rand_num = 0xdeadbeefdeadbeef;
     swap_in_place(&SC_INPUT_VALUE_SEC.rand_num, 8);
     // Register the LTK inside the security database structure.
     swap_buf(SC_INPUT_VALUE_SEC.ltk, SC_INPUT_KS, INPUT_SIZE);
@@ -52,4 +51,12 @@ int sc_input_sub() {
     SC_INPUT_VALUE_SEC.key_size = 16;
     // Register the hand-crafted structure inside the Nimble security database.
     return ble_store_write_our_sec(&SC_INPUT_VALUE_SEC);
+}
+
+void sc_input_set_to_conn_enc_data(struct ble_ll_conn_enc_data *enc_data) {
+#if MYNEWT_VAL(SC_LOG_TRACE_ENABLE)
+    console_printf("[input.c] sc_input_set_to_conn_enc_data(enc_data=%p)\n", enc_data);
+#endif
+    for (int cnt = 0; cnt < 16; ++cnt)
+        enc_data->enc_block.plain_text[cnt] = SC_INPUT_PT[cnt];
 }
