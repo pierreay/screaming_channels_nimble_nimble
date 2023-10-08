@@ -199,3 +199,17 @@ void dump_ble_store_value_sec(struct ble_store_value_sec *value_sec) {
     return;
 #endif
 }
+
+void dump_ble_store_key_sec(struct ble_store_key_sec *key_sec) {
+#if MYNEWT_VAL(SC_LOG_DUMP_ENABLE)
+#if MYNEWT_VAL(SC_LOG_TRACE_ENABLE)
+    console_printf("[dump.c] dump_ble_store_key_sec(key_sec=%p)\n", key_sec);
+#endif
+    console_printf("[v] key_sec->ediv=%#hx\n", key_sec->ediv);
+    console_printf("[v] key_sec->rand_num=%#llx\n", key_sec->rand_num);
+    console_printf("[v] key_sec->peer_addr=");
+    dump_ble_addr(key_sec->peer_addr);
+    console_printf("\n");
+    return;
+#endif
+}

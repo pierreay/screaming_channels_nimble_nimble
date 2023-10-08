@@ -45,6 +45,8 @@ void dump_ble_chanmap(uint8_t * chanmap);
 char * get_ble_ll_conn_enc_state(uint8_t enc_state);
 /** Dump the values contained inside struct ble_store_value_sec into console. */
 void dump_ble_store_value_sec(struct ble_store_value_sec *value_sec);
+/** Dump the values contained inside struct ble_store_key_sec into console. */
+void dump_ble_store_key_sec(struct ble_store_key_sec *key_sec);
 
 #ifdef __cplusplus
 }
