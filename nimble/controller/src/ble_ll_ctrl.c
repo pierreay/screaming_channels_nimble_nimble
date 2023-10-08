@@ -1325,7 +1325,6 @@ ble_ll_calc_session_key(struct ble_ll_conn_sm *connsm)
     // If input mode is submit and input has been submitted, set the wanted
     // plaintext (PT).
     if (SC_INPUT_MODE == SC_INPUT_MODE_SUB && SC_INPUT_SUB_OK == 1) {
-        dump_ble_ll_conn_enc_data(&connsm->enc_data);
         sc_input_set_to_conn_enc_data(&connsm->enc_data);
         dump_ble_ll_conn_enc_data(&connsm->enc_data);
     }
