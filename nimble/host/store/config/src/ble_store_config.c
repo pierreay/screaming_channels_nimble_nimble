@@ -27,6 +27,7 @@
 #include "store/config/ble_store_config.h"
 #include "ble_store_config_priv.h"
 #include <console/console.h>
+#include "screamingchannels/dump.h"
 
 struct ble_store_value_sec
     ble_store_config_our_secs[MYNEWT_VAL(BLE_STORE_MAX_BONDS)];
@@ -92,6 +93,9 @@ ble_store_config_find_sec(const struct ble_store_key_sec *key_sec,
 #if MYNEWT_VAL(SC_LOG_TRACE_ENABLE)
     console_printf("[ble_store_config.c] ble_store_config_find_sec()\n");
 #endif
+#if MYNEWT_VAL(SC_LOG_DUMP_ENABLE)
+    dump_ble_store_key_sec(key_sec);
+#endif
     
     const struct ble_store_value_sec *cur;
     int skipped;
@@ -101,6 +105,9 @@ ble_store_config_find_sec(const struct ble_store_key_sec *key_sec,
 
     for (i = 0; i < num_value_secs; i++) {
         cur = value_secs + i;
+#if MYNEWT_VAL(SC_LOG_DUMP_ENABLE)
+        dump_ble_store_value_sec(cur);
+#endif
 
         if (ble_addr_cmp(&key_sec->peer_addr, BLE_ADDR_ANY)) {
             if (ble_addr_cmp(&cur->peer_addr, &key_sec->peer_addr)) {
