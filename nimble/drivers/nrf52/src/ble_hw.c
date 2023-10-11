@@ -340,7 +340,6 @@ ble_hw_encrypt_block(struct ble_encryption_block *ecb)
 #if MYNEWT_VAL(SC_LOG_DUMP_ENABLE)
 #if MYNEWT_VAL(SC_TINYCRYPT_INSTR_LOOP_NB) < 5
         dump_ble_encryption_block(ecb);
-        dump_sc_state();
 #endif
 #endif
 #if MYNEWT_VAL(SC_TINYCRYPT_RADIO_ENABLE)
