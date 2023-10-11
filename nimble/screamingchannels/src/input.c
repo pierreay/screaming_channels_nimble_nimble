@@ -44,7 +44,8 @@ int sc_input_sub() {
     // Register the EDIV and RAND inside the security database structure.
     SC_INPUT_VALUE_SEC.ediv = 0xdead;
     SC_INPUT_VALUE_SEC.rand_num = 0xdeadbeefdeadbeef;
-    swap_in_place(&SC_INPUT_VALUE_SEC.rand_num, 8);
+    // NOTE: Uncomment the following line to make the number above match the Mirage output.
+    // swap_in_place(&SC_INPUT_VALUE_SEC.rand_num, 8);
     // Register the LTK inside the security database structure.
     swap_buf(SC_INPUT_VALUE_SEC.ltk, SC_INPUT_KS, INPUT_SIZE);
     SC_INPUT_VALUE_SEC.ltk_present = 1;

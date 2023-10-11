@@ -15,13 +15,6 @@ char *ENC_STATES[10] = {
     "CONN_ENC_S_START_ENC_REQ_WAIT", "CONN_ENC_S_START_ENC_RSP_WAIT",
     "CONN_ENC_S_LTK_REQ_WAIT",       "CONN_ENC_S_LTK_NEG_REPL"};
 
-/** Dump the RAND value contained in the ble_store_value_sec or the
- * ble_store_key_sec structures. */
-static void dump_ble_store_rand_num(uint64_t rand_num) {
-    uint8_t * rand_num_uint8 = (uint8_t *) &rand_num;
-    dump_hex_uint8(rand_num_uint8, 8, SC_DUMP_BIG_ENDIAN);
-}
-
 /* * Public */
 
 // Use with care as it introduces too much timing to complete a pairing.
@@ -202,8 +195,7 @@ void dump_ble_store_value_sec(const struct ble_store_value_sec *value_sec) {
     console_printf("[v] value_sec->ltk=");
     dump_hex_uint8(value_sec->ltk, INPUT_SIZE, SC_DUMP_LITTLE_ENDIAN);
     console_printf("[v] value_sec->ediv=%#hx\n", value_sec->ediv);
-    console_printf("[v] value_sec->rand_num=");
-    dump_ble_store_rand_num(value_sec->rand_num);
+    console_printf("[v] value_sec->rand_num=%#llx\n", value_sec->rand_num);
     console_printf("[v] value_sec->peer_addr=");
     dump_ble_addr(value_sec->peer_addr);
     console_printf("\n");
@@ -217,8 +209,7 @@ void dump_ble_store_key_sec(const struct ble_store_key_sec *key_sec) {
     console_printf("[dump.c] dump_ble_store_key_sec(key_sec=%p)\n", key_sec);
 #endif
     console_printf("[v] key_sec->ediv=%#hx\n", key_sec->ediv);
-    console_printf("[v] key_sec->rand_num=");
-    dump_ble_store_rand_num(key_sec->rand_num);
+    console_printf("[v] key_sec->rand_num=%#llx\n", key_sec->rand_num);
     console_printf("[v] key_sec->peer_addr=");
     dump_ble_addr(key_sec->peer_addr);
     console_printf("\n");
