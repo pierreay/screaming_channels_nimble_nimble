@@ -18,12 +18,6 @@ char *ENC_STATES[10] = {
 /** Dump the RAND value contained in the ble_store_value_sec or the
  * ble_store_key_sec structures. */
 static void dump_ble_store_rand_num(uint64_t rand_num) {
-    /* NOTE: I chooseed to display it in BIG_ENDIAN to match the mirage output,
-     * but I don't know what is the real number and correct representation
-     * here. */
-    /* uint64_t : */
-    /* console_printf("%#llx\n", rand_num); */
-    /* uint8_t : */
     uint8_t * rand_num_uint8 = (uint8_t *) &rand_num;
     dump_hex_uint8(rand_num_uint8, 8, SC_DUMP_BIG_ENDIAN);
 }
