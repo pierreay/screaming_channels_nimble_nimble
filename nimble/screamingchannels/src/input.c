@@ -39,6 +39,8 @@ char * sc_input_get_input_mode_str()
 int sc_input_sub() {
     // Register the BLE HCI dongle address in security database structure.
     SC_INPUT_PEER_ADDR.type = 0;
+    // The HCI address of the attacker is hardcoded twice, here and in our
+    // Python instrumentation device.py.
     set_ble_addr("00:19:0e:19:79:d8", SC_INPUT_PEER_ADDR.val);
     SC_INPUT_VALUE_SEC.peer_addr = SC_INPUT_PEER_ADDR;
     // Register the EDIV and RAND inside the security database structure.
