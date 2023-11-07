@@ -19,3 +19,9 @@ syscfg.defs:
             Whether to enable the radio after the first iteration of a
             TinyCrypt encryption (0 = disable ; 1 = enable).
         value: 0
+
+    SC_BD_ADDR_SPOOF:
+        description: >
+          Bluetooth address (BD_ADDR) of the legitimate central spoofed by the
+          attacker.
+        value: "00:19:0e:19:79:d8"
