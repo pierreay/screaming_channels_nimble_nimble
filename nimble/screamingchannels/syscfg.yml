@@ -23,5 +23,6 @@ syscfg.defs:
     SC_BD_ADDR_SPOOF:
         description: >
           Bluetooth address (BD_ADDR) of the legitimate central spoofed by the
-          attacker.
-        value: "00:19:0e:19:79:d8"
+          attacker. NOTE: Choice between colon or not is hardcoded in
+          "input.c".
+        value: '"00190e1979d8"'

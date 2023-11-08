@@ -18,9 +18,15 @@ ble_addr_t SC_INPUT_PEER_ADDR;
 /* * Private */
 
 /** Set DEST byte array to the address of length 6 represented by the SRC string. */
-void set_ble_addr(char * src, uint8_t * dest) {
-    sscanf(src, "%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx",
-           &dest[5], &dest[4], &dest[3], &dest[2], &dest[1], &dest[0]);
+void set_ble_addr(char * src, uint8_t * dest, int colon) {
+    if (colon == 1) {
+        sscanf(src, "%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx",
+               &dest[5], &dest[4], &dest[3], &dest[2], &dest[1], &dest[0]);
+    }
+    else if (colon == 0) {
+        sscanf(src, "%02hhx%02hhx%02hhx%02hhx%02hhx%02hhx",
+               &dest[5], &dest[4], &dest[3], &dest[2], &dest[1], &dest[0]);
+    }
 }
 
 /* * Public */
@@ -41,9 +47,7 @@ int sc_input_sub() {
     SC_INPUT_PEER_ADDR.type = 0;
     // Bluetooth address (BD_ADDR) of the legitimate central spoofed by the
     // attacker.
-    // NOTE: This address is hardcoded twice, here and in the .envrc
-    //       of the Screaming Channels BLE project.
-    set_ble_addr(MYNEWT_VAL(SC_BD_ADDR_SPOOF), SC_INPUT_PEER_ADDR.val);
+    set_ble_addr(MYNEWT_VAL(SC_BD_ADDR_SPOOF), SC_INPUT_PEER_ADDR.val, 0);
     SC_INPUT_VALUE_SEC.peer_addr = SC_INPUT_PEER_ADDR;
     // Register the EDIV and RAND inside the security database structure.
     SC_INPUT_VALUE_SEC.ediv = 0xdead;
