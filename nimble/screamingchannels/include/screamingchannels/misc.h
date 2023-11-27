@@ -17,6 +17,8 @@ void sc_misc_set_train_mode();
 void sc_misc_set_attack_mode();
 void sc_misc_set_sc_conn(uint8_t * chanmap);
 int sc_misc_is_sc_chanmap(uint8_t * chanmap);
+void sc_disable_interrupts();
+void sc_enable_interrupts();
 
 #ifdef __cplusplus
 }

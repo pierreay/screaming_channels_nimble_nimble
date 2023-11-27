@@ -20,6 +20,12 @@ syscfg.defs:
             TinyCrypt encryption (0 = disable ; 1 = enable).
         value: 0
 
+    SC_TINYCRYPT_INTERRUPTS_DISABLE:
+        description: >
+            Whether to disable the interrupts of the ARM M4 during the AES
+            execution. Default is to enable. (1 = disable ; 0 = enable).
+        value: 0
+
     SC_BD_ADDR_SPOOF:
         description: >
           Bluetooth address (BD_ADDR) of the legitimate central spoofed by the

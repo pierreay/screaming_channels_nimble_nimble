@@ -13,6 +13,7 @@ pkg.deps:
     - "@apache-mynewt-core/sys/console/full"
     - "@apache-mynewt-core/crypto/tinycrypt"
     - "@apache-mynewt-core/kernel/os"
+    - "@apache-mynewt-core/hw/mcu/nordic/nrf52xxx"
     - nimble
     - nimble/controller
     - nimble/host
