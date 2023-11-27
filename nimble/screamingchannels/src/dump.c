@@ -140,9 +140,7 @@ void dump_ble_chanmap(uint8_t * chanmap)
 
 char * get_ble_ll_conn_enc_state(uint8_t enc_state)
 {
-#if MYNEWT_VAL(SC_LOG_DUMP_ENABLE)
     return ENC_STATES[enc_state - 1];
-#endif
 }
 
 void dump_sc_state()
