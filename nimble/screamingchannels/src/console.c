@@ -70,7 +70,17 @@ screamingchannels_process_input(struct os_event *ev)
             console_printf("error: rc=%d", rc);
         }
     }
-    else if (line[0] == 'k' && line[1] == ':') {
+    // Generate a key.
+    else if (line[0] == 'k' && line[1] == '?') {
+        // TODO: Generate from random like the real LTK.
+        console_printf("aaaaaaaaaaaaaaaa\n");
+    }
+    // Generate a plaintext.
+    else if (line[0] == 'p' && line[1] == '?') {
+        // TODO: Generate from random like the real SKD_P.
+        console_printf("bbbbbbbbbbbbbbbb\n");
+    }
+   else if (line[0] == 'k' && line[1] == ':') {
         str_hex_to_uint8_dec(line + INPUT_BASE_OFFSET, SC_INPUT_KS, INPUT_SIZE);
         SC_INPUT_SUB_OK = 0;
     }
@@ -85,7 +95,7 @@ screamingchannels_process_input(struct os_event *ev)
         dump_sc_input();
     }
     else {
-        console_printf("commands: mode_train mode_attack mode_dump input_sub k: p: input_gen input_dump\n");
+        console_printf("commands: mode_train mode_attack mode_dump input_sub k? p? k: p: input_gen input_dump\n");
     }
     /* Done processing line. Add the event back to the avail_queue */
     console_line_event_put(ev);
