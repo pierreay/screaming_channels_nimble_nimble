@@ -70,6 +70,13 @@ void sc_input_set_to_conn_enc_data(struct ble_ll_conn_enc_data *enc_data);
  */
 void sc_input_ks_gen_print();
 
+/** Generate and print a plaintext.
+ *
+ * The plaintext will be generated using the same functions as the SKD is generated.
+ * This function is used to transfer a plaintext over the serial port.
+ */
+void sc_input_pt_gen_print();
+
 #ifdef __cplusplus
 }
 #endif

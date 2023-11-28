@@ -76,10 +76,7 @@ screamingchannels_process_input(struct os_event *ev)
     }
     // Generate a plaintext.
     else if (line[0] == 'p' && line[1] == '?') {
-        // TODO: Generate from random like the real SKD_P.
-        // NOTE: Do not use console_printf otherwise the Python client will
-        // read the undesired timestamp.
-        printf("0xaabbbbbbbbbbbbbbbbbbbbbbbbbbbbaa\n");
+        sc_input_pt_gen_print();
     }
    else if (line[0] == 'k' && line[1] == ':') {
         str_hex_to_uint8_dec(line + INPUT_BASE_OFFSET, SC_INPUT_KS, INPUT_SIZE);

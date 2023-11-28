@@ -3,6 +3,7 @@
 #include "screamingchannels/input.h"
 #include "screamingchannels/dump.h"
 #include "console/console.h"
+#include "controller/ble_ll.h"
 #include "../../host/src/ble_hs_hci_priv.h"
 
 // By default, the AES inputs generation method is the Nimble generation during
@@ -85,4 +86,18 @@ void sc_input_ks_gen_print() {
     // Print on serial port.
     const uint8_t * ksptr = (const uint8_t *) &ks;
     dump_hex_uint8_no_console(ksptr, INPUT_SIZE, SC_DUMP_BIG_ENDIAN);
+}
+
+void sc_input_pt_gen_print() {
+#if MYNEWT_VAL(SC_LOG_TRACE_ENABLE)
+    console_printf("[input.c] sc_input_pt_gen_print()\n");
+#endif
+    // NOTE: Based on ble_ll_ctrl_rx_enc_req() from ble_ll_ctrl.c.
+    // Statically initialize at 0.
+    uint8_t pt[INPUT_SIZE] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    // Generate random values by the link-layer controller.
+    ble_ll_rand_data_get((uint8_t *) &pt, INPUT_SIZE);
+    // Print on serial port.
+    const uint8_t * ptptr = (const uint8_t *) &pt;
+    dump_hex_uint8_no_console(ptptr, INPUT_SIZE, SC_DUMP_BIG_ENDIAN);
 }
