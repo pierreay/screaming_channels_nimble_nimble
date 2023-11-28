@@ -22,6 +22,13 @@ extern "C" {
 /** Dump hexadecimal number from uint8_t array into console. */
 void dump_hex_uint8(const uint8_t * hex, int size, int endianness);
 
+/** Dump hexadecimal number from uint8_t array into console without timestamps.
+ *
+ * NOTE: It do not use console_printf otherwise the Python client will read the
+ * undesired timestamp when reading from serial port.
+ */
+void dump_hex_uint8_no_console(const uint8_t * hex, int size, int endianness);
+
 /* * Screaming Channels structures */
 
 void dump_sc_state();

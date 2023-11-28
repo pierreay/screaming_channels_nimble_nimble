@@ -173,6 +173,7 @@ void dump_sc_input()
 }
 
 void dump_hex_uint8(const uint8_t * hex, int size, int endianness) {
+    // NOTE: Slight duplicate of dump_hex_uint8_no_console().
     console_printf("0x");
     if (endianness == SC_DUMP_BIG_ENDIAN) {
         for (int i = 0; i < size; i++)
@@ -183,6 +184,20 @@ void dump_hex_uint8(const uint8_t * hex, int size, int endianness) {
             console_printf("%02x", hex[i]);
     }
     console_printf("\n");
+}
+
+void dump_hex_uint8_no_console(const uint8_t * hex, int size, int endianness) {
+    // NOTE: Slight duplicate of dump_hex_uint8().
+    printf("0x");
+    if (endianness == SC_DUMP_BIG_ENDIAN) {
+        for (int i = 0; i < size; i++)
+            printf("%02x", hex[i]);
+    }
+    else if (endianness == SC_DUMP_LITTLE_ENDIAN) {
+        for (int i = size - 1; i >= 0; i--)
+            printf("%02x", hex[i]);
+    }
+    printf("\n");
 }
 
 void dump_ble_store_value_sec(const struct ble_store_value_sec *value_sec) {

@@ -63,6 +63,13 @@ int sc_input_sub();
  * SC_INPUT_SUB_OK is set to 1. */
 void sc_input_set_to_conn_enc_data(struct ble_ll_conn_enc_data *enc_data);
 
+/** Generate and print a key.
+ *
+ * The key will be generated using the same functions as the LTK is generated.
+ * This function is used to transfer a key over the serial port.
+ */
+void sc_input_ks_gen_print();
+
 #ifdef __cplusplus
 }
 #endif

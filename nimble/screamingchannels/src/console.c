@@ -72,10 +72,7 @@ screamingchannels_process_input(struct os_event *ev)
     }
     // Generate a key.
     else if (line[0] == 'k' && line[1] == '?') {
-        // TODO: Generate from random like the real LTK.
-        // NOTE: Do not use console_printf otherwise the Python client will
-        // read the undesired timestamp.
-        printf("baaaaaaaaaaaaaaa\n");
+        sc_input_ks_gen_print();
     }
     // Generate a plaintext.
     else if (line[0] == 'p' && line[1] == '?') {

@@ -1,6 +1,9 @@
 #include <inttypes.h>
+#include <stdint.h>
 #include "screamingchannels/input.h"
+#include "screamingchannels/dump.h"
 #include "console/console.h"
+#include "../../host/src/ble_hs_hci_priv.h"
 
 // By default, the AES inputs generation method is the Nimble generation during
 // pairing.
@@ -68,4 +71,18 @@ void sc_input_set_to_conn_enc_data(struct ble_ll_conn_enc_data *enc_data) {
 #endif
     for (int cnt = 0; cnt < 16; ++cnt)
         enc_data->enc_block.plain_text[cnt] = SC_INPUT_PT[cnt];
+}
+
+void sc_input_ks_gen_print() {
+#if MYNEWT_VAL(SC_LOG_TRACE_ENABLE)
+    console_printf("[input.c] sc_input_ks_gen_print()\n");
+#endif
+    // NOTE: Based on ble_sm_gen_ltk() from ble_sm.c.
+    // Statically initialize at 0 to remplace the memset().
+    uint8_t ks[INPUT_SIZE] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    // Generate random values by the HCI Host.
+    ble_hs_hci_util_rand(&ks, INPUT_SIZE);
+    // Print on serial port.
+    const uint8_t * ksptr = (const uint8_t *) &ks;
+    dump_hex_uint8_no_console(ksptr, INPUT_SIZE, SC_DUMP_BIG_ENDIAN);
 }
