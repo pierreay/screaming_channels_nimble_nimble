@@ -73,12 +73,16 @@ screamingchannels_process_input(struct os_event *ev)
     // Generate a key.
     else if (line[0] == 'k' && line[1] == '?') {
         // TODO: Generate from random like the real LTK.
-        console_printf("aaaaaaaaaaaaaaaa\n");
+        // NOTE: Do not use console_printf otherwise the Python client will
+        // read the undesired timestamp.
+        printf("baaaaaaaaaaaaaaa\n");
     }
     // Generate a plaintext.
     else if (line[0] == 'p' && line[1] == '?') {
         // TODO: Generate from random like the real SKD_P.
-        console_printf("bbbbbbbbbbbbbbbb\n");
+        // NOTE: Do not use console_printf otherwise the Python client will
+        // read the undesired timestamp.
+        printf("abbbbbbbbbbbbbbb\n");
     }
    else if (line[0] == 'k' && line[1] == ':') {
         str_hex_to_uint8_dec(line + INPUT_BASE_OFFSET, SC_INPUT_KS, INPUT_SIZE);
