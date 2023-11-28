@@ -75,9 +75,7 @@ void sc_input_set_to_conn_enc_data(struct ble_ll_conn_enc_data *enc_data) {
 }
 
 void sc_input_ks_gen_print() {
-#if MYNEWT_VAL(SC_LOG_TRACE_ENABLE)
-    console_printf("[input.c] sc_input_ks_gen_print()\n");
-#endif
+    // NOTE: Do not log anything here as the client will try to read the log.
     // NOTE: Based on ble_sm_gen_ltk() from ble_sm.c.
     // Statically initialize at 0 to remplace the memset().
     uint8_t ks[INPUT_SIZE] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -89,9 +87,7 @@ void sc_input_ks_gen_print() {
 }
 
 void sc_input_pt_gen_print() {
-#if MYNEWT_VAL(SC_LOG_TRACE_ENABLE)
-    console_printf("[input.c] sc_input_pt_gen_print()\n");
-#endif
+    // NOTE: Do not log anything here as the client will try to read the log.
     // NOTE: Based on ble_ll_ctrl_rx_enc_req() from ble_ll_ctrl.c.
     // Statically initialize at 0.
     uint8_t pt[INPUT_SIZE] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
