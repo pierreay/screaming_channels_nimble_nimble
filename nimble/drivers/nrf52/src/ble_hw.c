@@ -322,7 +322,10 @@ ble_hw_encrypt_block(struct ble_encryption_block *ecb)
     // First AES execution:
     tc_aes128_set_encrypt_key(&g_ctx, ecb->key);
     tc_aes_encrypt(ecb->cipher_text, ecb->plain_text, &g_ctx);
+    // Turn radio TX ON.
     radio_tx_carrier(4, RADIO_MODE_MODE_Ble_1Mbit, 20); // 2.420 GHz (BLE Channel 8)
+    // Wait 3 ticks for radio to start TX because previous function is non-blocking.
+    os_time_delay(3);
 
     // Loop over next executions for instrumentation:
 
