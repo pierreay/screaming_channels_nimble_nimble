@@ -315,32 +315,8 @@ static struct tc_aes_key_sched_struct g_ctx;
 int
 ble_hw_encrypt_block(struct ble_encryption_block *ecb)
 {
-#if MYNEWT_VAL(SC_LOG_TRACE_ENABLE)
-    console_printf("[ble_hw.c] ble_hw_encrypt_block(ecb=%p)\n", ecb);
-#endif
-
-#if MYNEWT_VAL(TINYCRYPT_INSTR_LOOP_ENABLE)
-    for (int j = 0; j < MYNEWT_VAL(TINYCRYPT_INSTR_LOOP_NB); j++) {
-#if MYNEWT_VAL(SC_LOG_TRACE_ENABLE)
-        console_printf("[v] TINYCRYPT_INSTR_LOOP_NB=%d\n", j);
-#endif
-#endif
-        tc_aes128_set_encrypt_key(&g_ctx, ecb->key);
-        // dump_tc_aes_key_sched_struct(&g_ctx);
-        tc_aes_encrypt(ecb->cipher_text, ecb->plain_text, &g_ctx);
-        dump_ble_encryption_block(ecb);
-        if (! IS_SC_TRAIN) {
-            break;
-        }
-        if (j == 1 && IS_SC_TRAIN) {
-            radio_tx_carrier(4, RADIO_MODE_MODE_Ble_1Mbit, 20); // 2.420 GHz (BLE Channel 8)
-        }
-#if MYNEWT_VAL(TINYCRYPT_INSTR_LOOP_ENABLE)
-    }
-#endif
-    if (IS_SC_TRAIN) {
-        radio_disable();
-    }
+    tc_aes128_set_encrypt_key(&g_ctx, ecb->key);
+    tc_aes_encrypt(ecb->cipher_text, ecb->plain_text, &g_ctx);
     return 0;
 }
 #endif
