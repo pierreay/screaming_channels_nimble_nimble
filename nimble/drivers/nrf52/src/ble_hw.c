@@ -322,31 +322,33 @@ ble_hw_encrypt_block(struct ble_encryption_block *ecb)
     // First AES execution:
     tc_aes128_set_encrypt_key(&g_ctx, ecb->key);
     tc_aes_encrypt(ecb->cipher_text, ecb->plain_text, &g_ctx);
-    // Turn radio TX ON.
-    /* radio_tx_carrier(4, RADIO_MODE_MODE_Ble_1Mbit, 20); // 2.420 GHz (BLE Channel 8) */
-    // Wait 3 ticks for radio to start TX because previous function is non-blocking.
-    /* os_time_delay(3); */
 
     // Loop over next executions for instrumentation:
 
-/* #if MYNEWT_VAL(SC_TINYCRYPT_INSTR_LOOP_ENABLE) */
+#if MYNEWT_VAL(SC_TINYCRYPT_INSTR_LOOP_ENABLE)
+
+    // Turn radio TX ON.
+    radio_tx_carrier(4, RADIO_MODE_MODE_Ble_1Mbit, 20); // 2.420 GHz (BLE Channel 8)
+    // Wait 3 ticks for radio to start TX because previous function is non-blocking.
+    os_time_delay(3);
+
 /* #if MYNEWT_VAL(SC_LOG_TRACE_ENABLE) */
 /*     console_printf("[v] SC_TINYCRYPT_INSTR_LOOP_NB=%d\n", MYNEWT_VAL(SC_TINYCRYPT_INSTR_LOOP_NB)); */
 /* #endif */
-    /* for (int j = 1; j < MYNEWT_VAL(SC_TINYCRYPT_INSTR_LOOP_NB); j++) { */
+    for (int j = 1; j < MYNEWT_VAL(SC_TINYCRYPT_INSTR_LOOP_NB); j++) {
 /* #if MYNEWT_VAL(SC_LOG_TRACE_ENABLE) */
 /* #if MYNEWT_VAL(SC_TINYCRYPT_INSTR_LOOP_NB) < 5 */
 /*         console_printf("[v] SC_TINYCRYPT_INSTR_LOOP_I=%d\n", j); */
 /* #endif */
 /* #endif */
 /* #endif */
-        /* tc_aes128_set_encrypt_key(&g_ctx, ecb->key); */
+        tc_aes128_set_encrypt_key(&g_ctx, ecb->key);
 /* #if MYNEWT_VAL(SC_LOG_DUMP_ENABLE) */
 /* #if MYNEWT_VAL(SC_TINYCRYPT_INSTR_LOOP_NB) < 5 */
 /*         dump_tc_aes_key_sched_struct(&g_ctx); */
 /* #endif */
 /* #endif */
-        /* tc_aes_encrypt(ecb->cipher_text, ecb->plain_text, &g_ctx); */
+        tc_aes_encrypt(ecb->cipher_text, ecb->plain_text, &g_ctx);
 /* #if MYNEWT_VAL(SC_LOG_DUMP_ENABLE) */
 /* #if MYNEWT_VAL(SC_TINYCRYPT_INSTR_LOOP_NB) < 5 */
 /*         dump_ble_encryption_block(ecb); */
@@ -358,11 +360,11 @@ ble_hw_encrypt_block(struct ble_encryption_block *ecb)
         /* } */
 /* #endif */
 /* #if MYNEWT_VAL(SC_TINYCRYPT_INSTR_LOOP_ENABLE) */
-    /* } */
+    }
 /* #endif */
 /* #if MYNEWT_VAL(SC_TINYCRYPT_RADIO_ENABLE) */
-    /* radio_disable(); */
-/* #endif */
+    radio_disable();
+#endif
     return 0;
 }
 #endif
